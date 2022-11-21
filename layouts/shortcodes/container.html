@@ -1,0 +1,7 @@
+<div class='{{ .Get "class" }}'>
+  {{ range split .Inner "<--->" }}
+    <div class="markContainer">
+      {{ . | $.Page.RenderString }}
+    </div>
+  {{ end }}
+</div>

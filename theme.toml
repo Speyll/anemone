@@ -1,0 +1,30 @@
+# theme.toml template for a Hugo theme
+# See https://github.com/gohugoio/hugoThemes#themetoml for an example
+
+name = "anemone"
+license = "MIT"
+licenselink = "https://github.com/yourname/yourtheme/blob/master/LICENSE"
+description = "Simple minimal elegant theme."
+homepage = "https://github.com/speyll/anemone"
+tags = ["minimal", "responsive", "blog", "dark", "light", "dark-mode"]
+features = []
+min_version = "0.41.0"
+
+[author]
+	name = "Speyll"
+  homepage = "https://speyll.gitlab.io/site/"
+
+[[menu.main]]
+	name = "/about"
+	url = "/about"
+	weight = 1
+
+[[menu.main]]
+	name = "/blog"
+	url = "/blog"
+	weight = 2
+
+[[menu.main]]
+	name = "/tags"
+	url = "/tags"
+	weight = 3

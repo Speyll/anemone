@@ -1,0 +1,18 @@
+{{ range .Site.RegularPages.ByPublishDate.Reverse | first 1 }}
+<div class="lastPost">
+<blockquote>
+  <p><strong class="metaData">{{ .Title }}</strong><br>
+  Published on: <time class="metaData">{{ dateFormat "02, Jan 2006" .Date }}</time></p>
+    
+  {{ .Summary }}
+
+  {{ if .Truncated }}
+    <div class="postData">
+      <p><span class="metaData">{{ .WordCount }}</span> words,
+      <span class="metaData">{{ .ReadingTime}}</span> minute read.<br>
+      <a href="{{ .RelPermalink }}">Read more ⇲</a></p>
+    </div>
+  {{ end }}
+</blockquote>
+</div>
+{{ end }}

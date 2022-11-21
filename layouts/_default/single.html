@@ -1,0 +1,32 @@
+{{ define "main" }}
+	<h1>{{ .Title }}</h1>
+	{{ if .Params.showdate }}
+	<p>Published on: <time class="metaData">{{ dateFormat "02, Jan 2006" .Date }}</time></p>
+	{{ end }}
+	{{ if .Draft }} <span class="metaData">» draft</span> {{ end }}</p>
+		
+	{{ if isset .Params "tldr" }}
+	<div class="tldr">
+    <strong class="metaData">tl;dr:</strong>
+		{{ .Params.tldr }}
+	</div>
+	{{ end }}
+
+	<article>
+		{{ .Content }}
+
+	<div>
+		{{ if ne .Type "page" }}
+		{{ if gt .Params.tags 0 }}
+
+			<ul class="tagsData">
+				{{ range .Params.tags }}
+				<li><a href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+				{{ end }}
+			</ul>
+
+		{{ end }}
+		{{ end }}
+	</div>
+  </article>
+{{ end }}

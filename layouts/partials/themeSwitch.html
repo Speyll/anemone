@@ -1,0 +1,10 @@
+<div class="themeSwitch">
+	<button class="themeButton light" onclick="setTheme('light')" title="Light mode">◐</button>
+	<button class="themeButton dark" onclick="setTheme('dark')" title="Dark mode">◑</button>
+</div>
+
+<script>
+const setTheme=(theme)=>{document.documentElement.className=theme;localStorage.setItem('theme',theme)}
+const getTheme=()=>{const theme=localStorage.getItem('theme');theme&&setTheme(theme)}
+getTheme()
+</script>

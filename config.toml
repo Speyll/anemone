@@ -1,0 +1,24 @@
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.55.0"
+    max = "0.105.0"
+
+[author]
+	name = "Speyll"
+  homepage = "https://speyll.gitlab.io/site/"
+
+[[menu.main]]
+	name = "/about"
+	url = "/about"
+	weight = 1
+
+[[menu.main]]
+	name = "/blog"
+	url = "/blog"
+	weight = 2
+
+[[menu.main]]
+	name = "/tags"
+	url = "/tags"
+	weight = 3

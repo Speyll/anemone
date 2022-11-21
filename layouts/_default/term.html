@@ -1,0 +1,20 @@
+{{ define "main" }}
+{{ if isset .Data "Term" }}
+<h1>Entries tagged - "{{ .Data.Term }}"</h1>
+{{ else }}
+<h1>Random pondering</h1>
+{{ end }}
+
+<ul>
+	{{- range .Data.Pages -}}
+		{{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
+		<li>
+			<time class="readData metaData">{{ dateFormat "02, 01 2006" .Date }}</time>
+			<a href="{{ .RelPermalink }}">{{.Title}}</a>
+			<span class="readData">» {{ .ReadingTime }} min read.</span>
+			{{ if .Draft }} <span class="metaData">» draft</span> {{ end }}
+		</li>
+		{{- end -}}
+	{{- end -}}
+</ul>
+{{ end }}

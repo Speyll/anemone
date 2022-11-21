@@ -1,0 +1,12 @@
+<ul>
+	{{- range .Site.RegularPages.ByPublishDate.Reverse | first 5  -}}
+		{{- if (not (in (.Site.Params.excludedTypes | default (slice "page")) .Type)) -}}
+		<li>
+			<time class="readData metaData">{{ dateFormat "02, 01 2006" .Date }}</time>
+			<a href="{{ .RelPermalink }}">{{.Title}}</a>
+			<span class="readData">» {{ .ReadingTime }} min read.</span>
+			{{ if .Draft }} <span class="metaData">» draft</span> {{ end }}
+		</li>
+		{{- end -}}
+	{{- end -}}
+</ul>
