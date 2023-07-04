@@ -1,4 +1,4 @@
-base_url = "https://anemone.pages.dev"
+base_url = "https://anemone.pages.dev/"
 title = "anemone"
 description = "Nearly no-Javascript, efficient, minimal theme."
 default_language = "en"
