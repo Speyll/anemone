@@ -1,6 +1,7 @@
 # anemone
 
 Nearly no-Javascript, efficient, minimal [Zola](https://www.getzola.org) theme.
+I use it on my own [website](https://speyllsite.pages.dev/)
 
 ## Light and dark theme
 ![screenshotLight](screenshot.png)
