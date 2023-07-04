@@ -1,6 +1,6 @@
 # anemone
 
-Nearly no-Javascript, efficient, minimal theme.
+Nearly no-Javascript, efficient, minimal [Zola](https://www.getzola.org) theme.
 
 ## Light theme
 ![screenshotLight](./blob/screenshotLight.png)
