@@ -2,11 +2,8 @@
 
 Nearly no-Javascript, efficient, minimal [Zola](https://www.getzola.org) theme.
 
-## Light theme
-![screenshotLight](./blob/screenshotLight.png)
-
-## Dark theme
-![screenshotDark](./blob/screenshotDark.png)
+## Light and dark theme
+![screenshotLight](screenshot.png)
 
 ## Installation
 First download this theme to your `themes` directory:
