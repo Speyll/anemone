@@ -1,24 +1,46 @@
-[module]
-  [module.hugoVersion]
-    extended = true
-    min = "0.55.0"
-    max = "0.105.0"
+base_url = "https://anemone.pages.dev"
+title = "anemone"
+description = "Nearly no-Javascript, efficient, minimal theme."
+default_language = "en"
+compile_sass = false
+minify_html = true
+generate_feed = true
 
-[author]
-	name = "Speyll"
-  homepage = "https://speyll.gitlab.io/site/"
+taxonomies = [
+  { name = "tags" },
+]
 
-[[menu.main]]
-	name = "/about"
-	url = "/about"
-	weight = 1
+[markdown]
+render_emoji = true
+external_links_target_blank = true
+smart_punctuation = true
+highlight_code = false
+highlight_theme = "gruvbox-dark"
 
-[[menu.main]]
-	name = "/blog"
-	url = "/blog"
-	weight = 2
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
 
-[[menu.main]]
-	name = "/tags"
-	url = "/tags"
-	weight = 3
+[link_checker]
+internal_level = "warn"
+
+[extra]
+author = "Lyes 'Speyll'"
+favicon = "favicon.ico"
+image = ""
+list_pages = false
+twitter_card = true
+
+header_nav = [
+  { name = "/home/", url = "/" },
+  { name = "/about/", url = "/about" },
+  { name = "/journal/", url = "/journal" },
+  { name = "/blog/", url = "/blog" },
+]
+
+#footer_nav = [
+#  { name = "< previous", url = "#" },
+#  { name = "webring", url = "#" },
+#  { name = "next >", url = "#" },
+#]

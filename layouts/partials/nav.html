@@ -1,7 +1,0 @@
-<nav class="navBar">
-  <a href="{{ .Site.BaseURL }}">/home</a>
-  {{ range .Site.Menus.main }}
-  <a href="{{ .URL }}">{{ .Name }}</a>
-  {{ end }}
-  {{ partial "themeSwitch.html" . }}
-</nav>
