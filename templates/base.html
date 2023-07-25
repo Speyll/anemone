@@ -128,14 +128,6 @@
           </div>
 
          </div>
-
-        {% if config.extra.footer_nav %}
-        <nav class="textCenter">
-            {% for nav_item in config.extra.footer_nav %}
-            <a href="{{ nav_item.url | safe }}">{{ nav_item.name }}</a>
-            {% endfor %}
-        </nav>
-        {% endif %}
       </footer>
     </div>
   </body>

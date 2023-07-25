@@ -38,9 +38,3 @@ header_nav = [
   { name = "/journal/", url = "/journal" },
   { name = "/blog/", url = "/blog" },
 ]
-
-#footer_nav = [
-#  { name = "< previous", url = "#" },
-#  { name = "webring", url = "#" },
-#  { name = "next >", url = "#" },
-#]

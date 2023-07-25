@@ -61,6 +61,9 @@ Now a table:
 
 random image of a dog[^4]
 
+## Webrings
+  - 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
+
 ---
 
 [^1]: this is a footnote. It should highlight if you click on the corresponding superscript number.

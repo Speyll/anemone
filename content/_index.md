@@ -25,3 +25,8 @@ this list is just the content of `content/_index.md`, the tests are shamelessly 
   - Email: [jgll6dij6@mozmail.com](mailto:jgll6dij6@mozmail.com)
   - Code repositories: [speyll@github.com](https://github.com/Speyll)
   - {{ metaData(content="@Speyll") }} anywhere else.
+
+## Webrings
+
+  - 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
+  - 🎶 {{ webring(prev="#", webring="#", webringName="Another Webring", next="#") }}

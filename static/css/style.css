@@ -307,3 +307,7 @@ textarea {
 .floatLeft {
     float: left
 }
+
+.webring {
+    margin: 0.4rem;
+}
