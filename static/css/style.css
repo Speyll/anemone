@@ -155,8 +155,10 @@ img {
 }
 
 pre {
-    color: var(--bgColor);
-    background-color: var(--fgColor);
+    border: 1px solid var(--metaColor);
+    padding: 1rem;
+    overflow-x: auto;
+    font-style: monospace;
 }
 
 p code,
@@ -164,6 +166,11 @@ li code,
 div code {
     color: var(--bgColor);
     background-color: var(--fgColor);
+}
+
+pre code {
+    color: inherit;
+    background-color: inherit;
 }
 
 iframe {
@@ -299,24 +306,4 @@ textarea {
 
 .floatLeft {
     float: left
-}
-
-#statuscafe {
-    border: 2px dashed var(--metaColor);
-    border-radius: 10px;
-    margin-bottom: 2rem;
-    padding: 1.4rem;
-}
-
-#statuscafe-content {
-    margin-left: 1rem
-}
-
-#statuscafe:focus,
-#statuscafe:hover {
-    transform: scale(1.05);
-    -webkit-transition: .1s ease-in;
-    -moz-transition: .1s ease-in;
-    -o-transition: .1s ease-in;
-    background: var(--bgSelect)
 }
