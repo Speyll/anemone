@@ -1,6 +1,6 @@
 base_url = "https://anemone.pages.dev"
 title = "anemone"
-description = "Nearly no-Javascript, efficient, minimal theme."
+description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
 default_language = "en"
 compile_sass = false
 minify_html = true

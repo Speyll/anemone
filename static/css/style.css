@@ -83,6 +83,7 @@ h1 {
     color: var(--bgColor);
     background-color: var(--metaColor);
     text-align: center;
+    text-wrap: balance;
 }
 
 h1::before {
@@ -113,7 +114,7 @@ ul {
     list-style: none;
     margin-top: .5rem;
     margin-bottom: .5rem;
-    line-height: 1.45
+    line-height: 1.45;
 }
 
 ul li::marker {
@@ -125,6 +126,13 @@ ul li:hover::marker {
     content: '# ';
     font-weight: 700;
     color: var(--linkColor)
+}
+
+li:hover {
+    transform: scale(1.02);
+    -webkit-transition: .1s ease-in;
+    -moz-transition: .1s ease-in;
+    -o-transition: .1s ease-in;
 }
 
 blockquote {
@@ -258,6 +266,10 @@ textarea {
     align-content: flex-end
 }
 
+.titleList {
+    line-height: 1.8;
+}
+
 .footnote-definition {
     margin: 0 0 0 2rem;
 }
@@ -309,5 +321,5 @@ textarea {
 }
 
 .webring {
-    margin: 0.4rem;
+    margin: 0.5rem;
 }

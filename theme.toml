@@ -1,5 +1,5 @@
 name = "anemone"
-description = "Nearly no-Javascript, efficient, minimal theme."
+description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
 license = "MIT"
 homepage = "https://github.com/Speyll/anemone"
 min_version = "0.4.0"
@@ -9,5 +9,5 @@ demo = "https://anemone.pages.dev"
 
 
 [author]
-name = "Lyes 'Speyll'"
+name = "Speyll"
 homepage = "https://speyllsite.pages.dev/"

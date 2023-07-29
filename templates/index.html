@@ -11,7 +11,7 @@
 {% set pages = section.pages %}
 {% endif %}
 
-<ul>
+<ul class="titleList">
 {% for page in pages %}
   <li>
     <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
