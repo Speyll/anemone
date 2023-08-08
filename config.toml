@@ -1,13 +1,31 @@
 base_url = "https://anemone.pages.dev"
-title = "anemone"
 description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
-default_language = "en"
 compile_sass = false
 minify_html = true
 generate_feed = true
 
+default_language = "en"
+
 taxonomies = [
-  { name = "tags" },
+    {name = "tags", feed = true},
+]
+
+[languages.en]
+weight = 1
+title = "anemone"
+languageName = "English"
+languageCode = "en"
+relativeURL = false
+
+[languages.fr]
+weight = 2
+title = "anemone"
+languageName = "Français"
+languageCode = "fr"
+relativeURL = false
+
+taxonomies = [
+    {name = "tags", feed = true},
 ]
 
 [markdown]
@@ -26,15 +44,24 @@ anchors = "on"
 internal_level = "warn"
 
 [extra]
-author = "Lyes 'Speyll'"
+author = "Speyll"
 favicon = "favicon.ico"
 image = ""
 list_pages = false
 twitter_card = true
 
-header_nav = [
-  { name = "/home/", url = "/" },
-  { name = "/about/", url = "/about" },
-  { name = "/journal/", url = "/journal" },
-  { name = "/blog/", url = "/blog" },
-]
+[[extra.header_nav]]
+en = { name = "/home/", url = "/" }
+fr = { name = "/accueil/", url = "/fr" }
+
+[[extra.header_nav]]
+en = { name = "/about/", url = "/about" }
+fr = { name = "/concernant/", url = "/about" }
+
+[[extra.header_nav]]
+en = { name = "/journal/", url = "/journal" }
+fr = { name = "/journal/", url = "/journal" }
+
+[[extra.header_nav]]
+en = { name = "/blog/", url = "/blog" }
+fr = { name = "/blog/", url = "/blog" }

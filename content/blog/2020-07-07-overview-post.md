@@ -61,6 +61,9 @@ Now a table:
 
 random image of a dog[^4]
 
+## Multilanguage support
+- 🥣 [Open this page translated to french](https://anemone.pages.dev/blog/fr/overview-post)
+
 ## Webrings
   - 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
 
