@@ -62,7 +62,7 @@ Maintenant un tableau :
 image aléatoire d'un chien[^4]
 
 ## Prise en charge multilingue
-- 🥣 [Ouvrez cette page traduite en français](./blog/fr/overview-post)
+- 🥣 [Ce site mais en français (seulement cette page et la page d'acceuil sont traduis)](./fr)
 
 ## Anneaux Web
   - 🈯 {{ webring(prev="#", webring="#", webringName="Anneau Aléatoire", next="#") }}
