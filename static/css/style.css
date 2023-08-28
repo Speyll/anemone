@@ -231,7 +231,7 @@ textarea {
 
 .navBar {
     margin: .5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     display: flex;
     flex-direction: row;
     gap: .4rem;
