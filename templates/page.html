@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 
-{% block header %}
-<h1>{{ page.title }}</h1>
-{% endblock header %}
-
 {% block content %}
+<h1>{{ page.title }}</h1>
 
 {% if page.toc and page.extra.toc %}
 <h2>Table of contents</h2>
@@ -34,9 +31,7 @@
 {% endif %}
 
 {{ page.content | safe }}
-{% endblock content %}
 
-{% block footer %}
 <p class="tagsData">
 {% if page.taxonomies.tags %}
 {% for tag in page.taxonomies.tags %}
@@ -44,4 +39,4 @@
 {% endfor %}
 {% endif %}
 </p>
-{% endblock footer %}
+{% endblock content %}

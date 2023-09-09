@@ -1,0 +1,25 @@
+{% if config.extra.header_nav %}
+<nav class="navBar">
+  {% for nav_item in config.extra.header_nav %}
+  {% set current_nav_item = nav_item[lang] %}
+  {% if current_nav_item and current_nav_item.name %}
+  <a href="{{ get_url(path=current_nav_item.url) }}" {% if current_nav_item.new_tab %}target="_blank" rel="noreferrer noopener"{% endif %}>{{ current_nav_item.name }}</a>
+  {% endif %}
+  {% endfor %}
+  <div class="themeSwitch">
+    <button class="themeButton light" onclick="setTheme('light')" title="Light mode"><svg class="icons icons__background"><use href="{{ get_url(path='icons.svg#lightMode', trailing_slash=false) | safe }}"></use></svg></button>
+    <button class="themeButton dark" onclick="setTheme('dark')" title="Dark mode"><svg class="icons icons__background"><use href="{{ get_url(path='icons.svg#darkMode', trailing_slash=false) | safe }}"></use></svg></button>
+  </div>
+</nav>
+{% endif %}
+<script>
+  const setTheme = (theme) => {
+      document.documentElement.className = theme;
+      localStorage.setItem('theme', theme);
+  }
+  const getTheme = () => {
+      const theme = localStorage.getItem('theme');
+      theme && setTheme(theme);
+  }
+  getTheme()
+</script>

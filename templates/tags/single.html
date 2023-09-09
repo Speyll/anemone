@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 
-{% block header %}
-<h1>{{ term.name }}</h1>
-{% endblock header %}
-
 {% block content %}
+<h1>{{ term.name }}</h1>
 {% if paginator %}
 {% set pages = paginator.pages %}
 {% else %}

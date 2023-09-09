@@ -1,148 +1,18 @@
 <!doctype html>
 <html lang="{{ lang }}">
   <head>
-    <meta charset="UTF-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <meta name="robots" content="index, follow">
-    {% if page.title %}
-    {% set title = page.title %}
-    {% elif section.title %}
-    {% set title = section.title %}
-    {% elif config.title %}
-    {% set title = config.title %}
-    {% endif %}
-    {% if page.extra.author %}
-    {% set author = page.extra.author %}
-    {% elif section.extra.author %}
-    {% set author = section.extra.author %}
-    {% elif config.extra.author %}
-    {% set author = config.extra.author %}
-    {% endif %}
-    {% if page.description %}
-    {% set description = page.description | truncate(length=150) %}
-    {% elif section.description %}
-    {% set description = section.description | truncate(length=150) %}
-    {% elif config.description %}
-    {% set description = config.description | truncate(length=150) %}
-    {% endif %}
-    {% if page.extra.image %}
-    {% set image = get_url(path=page.extra.image, trailing_slash=false) %}
-    {% elif section.extra.image %}
-    {% set image = get_url(path=section.extra.image, trailing_slash=false) %}
-    {% elif config.extra.favicon %}
-    {% set image = get_url(path=config.extra.favicon, trailing_slash=false) %}
-    {% endif %}
-    {% if page.permalink %}
-    {% set url = page.permalink %}
-    {% elif section.permalink %}
-    {% set url = section.permalink %}
-    {% elif config.base_url %}
-    {% set url = config.base_url %}
-    {% endif %}
-    {% if title %}
-    <title>{{ title }}</title>
-    {% endif %}
-    {% block metatags %}
-    {% if title %}
-    <meta name="title" content="{{ title }}">
-    {% endif %}
-    {% if author %}
-    <meta name="author" content="{{ author }}">
-    {% endif %}
-    {% if description %}
-    <meta name="description" content="{{ description }}">
-    {% endif %}
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url | safe }}">
-    {% if title %}
-    <meta property="og:site_name" content="{{ config.title }}">
-    {% endif %}
-    {% if title %}
-    <meta property="og:title" content="{{ title }}">
-    {% endif %}
-    {% if description %}
-    <meta property="og:description" content="{{ description }}">
-    {% endif %}
-    {% if image %}
-    <meta property="og:image" content="{{ image }}">
-    {% endif %}
-    {% set twitter_card = config.extra.twitter_card | default(value=true) %}
-    {% if twitter_card != false %}
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url | safe }}">
-    {% if title %}
-    <meta property="twitter:title" content="{{ title }}">
-    {% endif %}
-    {% if description %}
-    <meta property="twitter:description" content="{{ description }}">
-    {% endif %}
-    {% if image %}
-    <meta property="twitter:image" content="{{ image }}">
-    {% endif %}
-    {% endif %}
-    <link rel="canonical" href="{{ url | safe }}">
-    {% if image %}
-    <link rel="shortcut icon" type="image/x-icon" href="{{ get_url(path=config.extra.favicon, trailing_slash=false) }}">
-    {% endif %}
-    {% endblock metatags %}
-    {% if config.generate_feed %}
-    {% block feed %}
-    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
-    {% endblock feed %}
-    {% endif %}
-    {% block css %}
-    <link rel="stylesheet" href="{{ get_url(path='css/style.css', trailing_slash=false) | safe }}"/>
-    {% endblock css %}
+    {% include "head.html" %}
   </head>
   <body>
     <div class="wrapper">
       <header>
-        {% if config.extra.header_nav %}
-        <nav class="navBar">
-          {% for nav_item in config.extra.header_nav %}
-          {% set current_nav_item = nav_item[lang] %}
-          {% if current_nav_item and current_nav_item.name %}
-          <a href="{{ get_url(path=current_nav_item.url) }}" {% if current_nav_item.new_tab %}target="_blank" rel="noreferrer noopener"{% endif %}>{{ current_nav_item.name }}</a>
-          {% endif %}
-          {% endfor %}
-          <div class="themeSwitch">
-            <button class="themeButton light" onclick="setTheme('light')" title="Light mode">◐</button>
-            <button class="themeButton dark" onclick="setTheme('dark')" title="Dark mode">◑</button>
-          </div>
-        </nav>
-        {% endif %}
-        <script>
-          const setTheme = (theme) => {
-              document.documentElement.className = theme;
-              localStorage.setItem('theme', theme);
-          }
-          const getTheme = () => {
-              const theme = localStorage.getItem('theme');
-              theme && setTheme(theme);
-          }
-          getTheme()
-        </script>
+        {% include "header.html" %}
       </header>
       <main>
         {% block content %}{% endblock content %}
       </main>
       <footer>
-        {% block footer %}{% endblock footer %}
-        <hr>
-        <div class=footContainer>
-          <div class="footLeft">
-            <p>Licensed under <a target="_blank" rel="noopener noreferrer" href="https://fr.wikipedia.org/wiki/Licence_MIT">MIT</a><br>
-              Built with <a target="_blank" rel="noopener noreferrer" href="https://www.getzola.org">Zola</a> using <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a> theme &amp; <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/veqev">veqev</a> colors.<br>
-            </p>
-          </div>
-          <div class="footRight">
-            <!-- Size 46x46 -->
-            <img class="footGif noStyle" loading="lazy" src="https://i.ibb.co/XYDpfcs/foot.gif" alt="footGif">
-            <a class="metaData" target="_blank" rel="noopener noreferrer" href="{{ get_url(path="atom.xml", trailing_slash=false) }}" title="Subscribe via RSS for updates.">RSS</a>
-          </div>
-        </div>
+        {% include "footer.html" %}
       </footer>
     </div>
   </body>

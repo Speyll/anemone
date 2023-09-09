@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 
-{% block header %}
+{% block content %}
 <div><a href="..">..</a>/<span class="metaData">{{ page.slug }}</span></div>
 <time datetime="{{ page.date }}">Published on: <span class="metaData">{{ page.date }}</span></time>
 <h1>{{ page.title }}</h1>
-{% endblock header %}
-
-{% block content %}
 
 {% if page.toc and page.extra.toc %}
 <h2>Table of contents</h2>
@@ -35,11 +32,8 @@
 </ul>
 {% endif %}
 
-
 {{ page.content | safe }}
-{% endblock content %}
 
-{% block footer %}
 <p class="tagsData">
 {% if page.taxonomies.tags %}
 {% for tag in page.taxonomies.tags %}
@@ -47,4 +41,4 @@
 {% endfor %}
 {% endif %}
 </p>
-{% endblock footer %}
+{% endblock content %}
