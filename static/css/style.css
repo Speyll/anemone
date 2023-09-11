@@ -132,7 +132,7 @@ ul li:hover::marker {
 }
 
 blockquote {
-  border-left: 5px solid var(--metaColor);
+  border-left: .5rem solid var(--metaColor);
   margin: 1rem;
   padding: 0 0 0 1rem
 }
@@ -154,7 +154,7 @@ img {
   height: auto;
   margin: .2rem;
   padding: .2rem;
-  border: dashed 2px var(--metaColor);
+  border: dashed .2rem var(--metaColor);
   border-radius: 15px
 }
 
@@ -207,7 +207,7 @@ th {
 td,
 th {
   padding: .5rem;
-  border: dashed 1px var(--metaColor)
+  border: dashed .1rem var(--metaColor)
 }
 
 footer {
@@ -242,8 +242,8 @@ textarea {
   width: 2.0rem;
   height: 2.0rem;
   aspect-ratio: 1/1;
-  top: .3rem;
-  position: relative;
+  display: inline-block;
+  vertical-align: middle;
   color: var(--fgColor);
   fill: var(--fgColor);
   background-color: transparent;
