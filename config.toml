@@ -45,6 +45,7 @@ internal_level = "warn"
 
 [extra]
 author = "Speyll"
+display_author = true
 favicon = "favicon.ico"
 image = ""
 list_pages = false
