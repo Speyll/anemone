@@ -3,42 +3,43 @@
 {% block content %}
 <div><a href="..">..</a>/<span class="metaData">{{ page.slug }}</span></div>
 <time datetime="{{ page.date }}">Published on: <span class="metaData">{{ page.date }}</span></time>
+<address rel="author">By <span class="metaData">{{config.extra.author}}</span></address>
 <h1>{{ page.title }}</h1>
 
 {% if page.toc and page.extra.toc %}
 <h2>Table of contents</h2>
 <ul>
-{% for h1 in page.toc %}
+  {% for h1 in page.toc %}
   <li>
-  <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
-  {% if h1.children %}
+    <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+    {% if h1.children %}
     <ul>
       {% for h2 in h1.children %}
-        <li>
+      <li>
         <a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
-          <ul>
+        <ul>
           {% for h3 in h2.children %}
-            <li>
+          <li>
             <a href="{{ h3.permalink | safe }}">{{ h3.title }}</a>
-            </li>
+          </li>
           {% endfor %}
-          </ul>
-        </li>
+        </ul>
+      </li>
       {% endfor %}
     </ul>
-  {% endif %}
+    {% endif %}
   </li>
-{% endfor %}
+  {% endfor %}
 </ul>
 {% endif %}
 
 {{ page.content | safe }}
 
 <p class="tagsData">
-{% if page.taxonomies.tags %}
-{% for tag in page.taxonomies.tags %}
-<a href="/tags/{{ tag | slugify }}">&#47;{{ tag }}&#47;</a>
-{% endfor %}
-{% endif %}
+  {% if page.taxonomies.tags %}
+  {% for tag in page.taxonomies.tags %}
+  <a href="/tags/{{ tag | slugify }}">&#47;{{ tag }}&#47;</a>
+  {% endfor %}
+  {% endif %}
 </p>
 {% endblock content %}
