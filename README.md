@@ -95,6 +95,24 @@ en = { name = "/blog/", url = "/blog" }
 fr = { name = "/blog/", url = "/blog" }
 ```
 
+#### Default Theme
+
+To configure the default theme, simply utilize the `default_theme` variable and set it to either `light` or `dark`:
+
+```toml
+[extra]
+default_theme = "light"
+```
+
+#### Display Author Name in Blog Posts
+
+Customize the display of the author's name in your blog posts by toggling the `display_author` variable to either `true` or `false`:
+
+```toml
+[extra]
+display_author = true
+```
+
 ### Webrings
 
 Add a webring with a shortcode:
