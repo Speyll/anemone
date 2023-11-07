@@ -92,4 +92,5 @@
 {% block css %}
 <link rel="stylesheet" href="{{ get_url(path='css/style.css', trailing_slash=false) | safe }}"/>
 {% endblock css %}
-<script src="{{ get_url(path='js/script.js', trailing_slash=false) | safe }}"></script>
+<script src="{{ get_url(path='js/script.js', trailing_slash=false) | safe }}" defer></script>
+

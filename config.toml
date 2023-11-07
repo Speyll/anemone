@@ -3,30 +3,16 @@ description = "A minimalist Zola theme that prioritizes clean CSS and avoids hea
 compile_sass = false
 minify_html = true
 generate_feed = true
-
 default_language = "en"
 
 taxonomies = [
     {name = "tags", feed = true},
 ]
 
-[languages.en]
-weight = 1
-title = "anemone"
-languageName = "English"
-languageCode = "en"
-relativeURL = false
-
 [languages.fr]
 weight = 2
-title = "anemone"
 languageName = "Français"
 languageCode = "fr"
-relativeURL = false
-
-taxonomies = [
-    {name = "tags", feed = true},
-]
 
 [markdown]
 render_emoji = true
@@ -54,18 +40,9 @@ default_theme = "light"
 list_pages = false
 twitter_card = true
 
-[[extra.header_nav]]
-en = { name = "/home/", url = "/" }
-fr = { name = "/accueil/", url = "/fr" }
-
-[[extra.header_nav]]
-en = { name = "/about/", url = "/about" }
-fr = { name = "/concernant/", url = "/about" }
-
-[[extra.header_nav]]
-en = { name = "/journal/", url = "/journal" }
-fr = { name = "/journal/", url = "/journal" }
-
-[[extra.header_nav]]
-en = { name = "/blog/", url = "/blog" }
-fr = { name = "/blog/", url = "/blog" }
+header_nav = [
+  { url = "/", name_en = "/home/", name_fr = "/accueil/" },
+  { url = "/about", name_en = "/about/", name_fr = "/concernant/" },
+  { url = "/journal", name_en = "/journal/", name_fr = "/journal/" },
+  { url = "/blog", name_en = "/blog/", name_fr = "/blog/" }
+]

@@ -53,23 +53,11 @@ list_pages = true
 The theme has a built-in feature that allows you to use multiple languages. For detailed instructions on how to use this feature, you can refer to the [Zola Multilingual documentation](https://www.getzola.org/documentation/content/multilingual/). This documentation provides additional information on how to make the most out of this multilingual capability.
 
 ```toml
-[languages.en]
-weight = 1
-title = "anemone"
-languageName = "English"
-languageCode = "en"
-relativeURL = false
-
 [languages.fr]
 weight = 2
 title = "anemone"
 languageName = "Français"
 languageCode = "fr"
-relativeURL = false
-
-taxonomies = [
-    {name = "tags", feed = true},
-]
 ```
 #### Multilanguage-Ready Navigation Bar
 
@@ -78,21 +66,12 @@ Customize the header navigation links with the following code in the `extra` sec
 ```toml
 [extra]
 
-[[extra.header_nav]]
-en = { name = "/home/", url = "/" }
-fr = { name = "/accueil/", url = "/fr" }
-
-[[extra.header_nav]]
-en = { name = "/about/", url = "/about" }
-fr = { name = "/concernant/", url = "/about" }
-
-[[extra.header_nav]]
-en = { name = "/journal/", url = "/journal" }
-fr = { name = "/journal/", url = "/journal" }
-
-[[extra.header_nav]]
-en = { name = "/blog/", url = "/blog" }
-fr = { name = "/blog/", url = "/blog" }
+header_nav = [
+  { url = "/", name_en = "/home/", name_fr = "/accueil/" },
+  { url = "/about", name_en = "/about/", name_fr = "/concernant/" },
+  { url = "/journal", name_en = "/journal/", name_fr = "/journal/" },
+  { url = "/blog", name_en = "/blog/", name_fr = "/blog/" }
+]
 ```
 
 #### Default Theme

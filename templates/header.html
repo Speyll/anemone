@@ -1,12 +1,17 @@
+{% set current_lang = config.default_language %}
+{% if page %}
+  {% set current_lang = page.lang %}
+{% elif section %}
+  {% set current_lang = section.lang %}
+{% endif %}
 {% if config.extra.header_nav %}
-<nav class="navBar">
-  {% for nav_item in config.extra.header_nav %}
-  {% set current_nav_item = nav_item[lang] %}
-  {% if current_nav_item and current_nav_item.name %}
-  <a href="{{ get_url(path=current_nav_item.url) }}" {% if current_nav_item.new_tab %}target="_blank"
-    rel="noreferrer noopener" {% endif %}>{{ current_nav_item.name }}</a>
-  {% endif %}
-  {% endfor %}
+  <nav class="navBar">
+    {% for nav_item in config.extra.header_nav %}
+      <a href="{{ nav_item.url }}" class="{% if nav_item.url == current_url %}active{% endif %}">
+        {% set language_key = 'name_' ~ current_lang %}
+        {{ nav_item[language_key] }}
+      </a>
+    {% endfor %}
 
   <div class="themeSwitch">
     {% if not config.extra.default_theme %}
