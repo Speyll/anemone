@@ -4,15 +4,17 @@
     {% include "head.html" %}
 </head>
 <body>
-    <header>
-        {% include "header.html" %}
-    </header>
-    <main>
-        {% block content %}
-        {% endblock content %}
-    </main>
-    <footer>
-        {% include "footer.html" %}
-    </footer>
+    <div class="wrapper">
+      <header>
+          {% include "header.html" %}
+      </header>
+      <main>
+          {% block content %}
+          {% endblock content %}
+      </main>
+      <footer>
+          {% include "footer.html" %}
+      </footer>
+    </div>
 </body>
 </html>
