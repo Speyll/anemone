@@ -114,7 +114,7 @@ toc = true
 - Set the `author` in both the main config and in pages' metadata.
 - Use the `image` variable in pages to add an image to HTML `<meta>` tags.
 - Similarly, set `favicon` in the main config, and it will be used as the site icon.
-- Set `footer_content_license` and `footer_content_license_link` if you wish to display conent license information in the footer.
+- Set `footer_content_license` and `footer_content_license_link` if you wish to display content license information in the footer.
 
 #### Disable Twitter Card
 
