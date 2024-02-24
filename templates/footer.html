@@ -1,7 +1,16 @@
 <hr>
 <div class=footContainer>
+  {% if config.extra.footer_content_license %}
+    <div>Except where otherwise noted, content on this site is licensed under a 
+    {% if config.extra.footer_content_license_link %}
+    <a target="_blank" rel="noopener noreferrer" href="{{config.extra.footer_content_license_link}}">{{config.extra.footer_content_license}}</a>
+    {% else %}
+    {{config.extra.footer_content_license}}
+    {% endif %}
+    license.</div>
+  {% endif %}
   <div class="footLeft">
-    <p>Licensed under the <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/MIT_License">MIT License</a>.<br>
+    <p>Theme and color theme licensed under <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Licence_MIT">MIT</a>.<br>
       Built with <a target="_blank" rel="noopener noreferrer" href="https://www.getzola.org">Zola</a> using <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a> theme &amp; <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/veqev">veqev</a> colors.<br>
     </p>
   </div>
