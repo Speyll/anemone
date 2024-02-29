@@ -1,5 +1,5 @@
 <hr>
-<div class=footContainer>
+<div id="footer-container">
   {% if config.extra.footer_content_license %}
     <div>Except where otherwise noted, content on this site is licensed under a 
     {% if config.extra.footer_content_license_link %}
@@ -9,14 +9,14 @@
     {% endif %}
     license.</div>
   {% endif %}
-  <div class="footLeft">
+  <div>
     <p>Theme and color theme licensed under <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Licence_MIT">MIT</a>.<br>
       Built with <a target="_blank" rel="noopener noreferrer" href="https://www.getzola.org">Zola</a> using <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a> theme &amp; <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/veqev">veqev</a> colors.<br>
     </p>
   </div>
   {% if config.generate_feed %}
-  <div class="footRight">
-    <a class="icons__background" target="_blank" rel="noopener noreferrer" href="{{ get_url(path="atom.xml", trailing_slash=false) }}" title="Subscribe via RSS for updates."><svg class="icons icons__background"><use href="{{ get_url(path='icons.svg#rss', trailing_slash=false) | safe }}"></use></svg></a>
+  <div>
+    <a class="no-style" target="_blank" rel="noopener noreferrer" href="{{ get_url(path="atom.xml", trailing_slash=false) }}" title="Subscribe via RSS for updates."><svg class="icons"><use href="{{ get_url(path='icons.svg#rss', trailing_slash=false) | safe }}"></use></svg></a>
   </div>
   {% endif %}
 </div>
