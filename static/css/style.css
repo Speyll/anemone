@@ -82,8 +82,13 @@
   color: var(--accent);
 }
 
-.text-center {
+.center {
   text-align: center;
+}
+
+.center img {
+  display: block;
+  margin: 1rem auto;
 }
 
 .float-right {
