@@ -9,7 +9,7 @@ Anemone is a versatile Zola theme that comes with both light and dark variants. 
 
 ![Anemone Light and Dark Theme](screenshot.png)
 
-### Installation
+## Installation
 
 To get started with Anemone, follow these simple steps:
 
@@ -42,7 +42,7 @@ This release brings several improvements and enhancements, focusing mainly on op
 - **Slight change in Color Choice:** Some dark mode colors have been changed for the sake of readability, still using [veqev](https://github.com/Speyll/veqev).
 
 
-### Options
+## Options
 
 Anemone provides various options to customize your website:
 
