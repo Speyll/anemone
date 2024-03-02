@@ -32,7 +32,7 @@
 
 {{ page.content | safe }}
 
-<p class="tagsData">
+<p class="tags-data">
 {% if page.taxonomies.tags %}
 {% for tag in page.taxonomies.tags %}
 <a href="/tags/{{ tag | slugify }}">&#47;{{ tag }}&#47;</a>
