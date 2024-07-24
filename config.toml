@@ -3,7 +3,7 @@ title = "anemone"
 description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
 compile_sass = false
 minify_html = true
-generate_feed = true
+generate_feeds = true
 default_language = "en"
 
 taxonomies = [
