@@ -84,7 +84,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="{{ get_url(path=config.extra.favicon, trailing_slash=false) }}">
 {% endif %}
 {% endblock metatags %}
-{% if config.generate_feed %}
+{% if config.generate_feeds %}
 {% block feed %}
 <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path="atom.xml", trailing_slash=false) }}"> 
 {% endblock feed %}
