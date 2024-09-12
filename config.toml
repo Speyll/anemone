@@ -11,9 +11,8 @@ taxonomies = [
 ]
 
 [languages.fr]
-weight = 2
-languageName = "Français"
-languageCode = "fr"
+generate_feeds = true
+build_search_index = true
 
 [markdown]
 render_emoji = true
