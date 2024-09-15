@@ -70,10 +70,8 @@ The theme has a built-in feature that allows you to use multiple languages. For 
 
 ```toml
 [languages.fr]
-weight = 2
-title = "anemone"
-languageName = "Français"
-languageCode = "fr"
+generate_feeds = true
+build_search_index = true
 ```
 #### Multilanguage-Ready Navigation Bar
 
