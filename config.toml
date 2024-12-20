@@ -12,7 +12,7 @@ taxonomies = [
 
 [languages.fr]
 generate_feeds = true
-build_search_index = true
+build_search_index = false
 
 [markdown]
 render_emoji = true
