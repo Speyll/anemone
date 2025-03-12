@@ -8,6 +8,12 @@
 {% endif %}
 <h1>{{ page.title }}</h1>
 
+{% if page.extra.banner %}
+<div class="banner">
+  <img src="{{ page.extra.banner }}">
+</div>
+{% endif %}
+
 {% if page.toc and page.extra.toc %}
 <h2>Table of contents</h2>
 <ul>

@@ -91,6 +91,13 @@
   margin: 1rem auto;
 }
 
+.banner img {
+  display: block;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .float-right {
   float: right
 }
