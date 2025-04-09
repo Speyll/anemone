@@ -1,49 +1,64 @@
-const toggleButton = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-const themeSound = document.getElementById('theme-sound');
+class ThemeManager {
+    constructor() {
+        // Cache DOM elements once
+        this.toggle = document.getElementById('theme-toggle');
+        this.icon = document.getElementById('theme-icon');
 
-// Function to update the theme icon based on the current theme
-const updateThemeIcon = (isDarkMode) => {
-    const themeMode = isDarkMode ? 'darkMode' : 'lightMode';
-    const iconPath = themeIcon.querySelector('use').getAttribute('href').replace(/#.*$/, `#${themeMode}`);
-    themeIcon.querySelector('use').setAttribute('href', iconPath);
-};
+        // Get data attributes once
+        const { iconBase, iconDark, iconLight, soundSrc } = this.toggle.dataset;
+        this.iconBase = iconBase;
+        this.iconDark = iconDark;
+        this.iconLight = iconLight;
 
-// Function to update the theme based on the current mode
-const updateTheme = (isDarkMode) => {
-    const theme = isDarkMode ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeIcon(isDarkMode);
-};
+        // Create audio element only when needed
+        this.sound = new Audio(soundSrc);
 
-// Function to toggle the theme
-const toggleTheme = () => {
-    const isDarkMode = toggleButton.checked;
-    updateTheme(isDarkMode);
-    themeSound.play();
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        this.init();
+    }
 
-    // Add transition class to body for smooth transition
-    document.body.classList.add('theme-transition');
-    setTimeout(() => {
-        document.body.classList.remove('theme-transition');
-    }, 300);
-};
+    init() {
+        this.setInitialTheme();
+        this.toggle.addEventListener('click', () => this.toggleTheme());
+    }
 
-// Event listener for theme toggle
-toggleButton.addEventListener('change', toggleTheme);
+    setInitialTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const initialTheme = savedTheme || (systemDark ? 'dark' : 'light');
 
-// Function to initialize the theme based on the stored preference
-const initializeTheme = () => {
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDarkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
-    toggleButton.checked = isDarkMode;
-    updateTheme(isDarkMode);
-};
+        document.documentElement.setAttribute('data-theme', initialTheme);
+        this.updateIcon(initialTheme === 'dark');
+    }
 
-// Initialize the theme
-initializeTheme();
+    toggleTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const newTheme = isDark ? 'light' : 'dark';
 
-// Listen for changes in system preference
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', initializeTheme);
+        document.body.classList.add('theme-transition');
+        document.documentElement.setAttribute('data-theme', newTheme);
+
+        // Use the inverse to update the icon to match the new theme
+        this.updateIcon(!isDark);
+
+        localStorage.setItem('theme', newTheme);
+
+        // Use requestAnimationFrame for better performance on transition
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                document.body.classList.remove('theme-transition');
+            }, 300);
+        });
+
+        this.sound.play().catch(() => {});
+    }
+
+
+    // Extracted common functionality
+    updateIcon(isDark) {
+        this.icon.setAttribute('href', 
+            `${this.iconBase}${isDark ? this.iconDark : this.iconLight}`);
+    }
+}
+
+// Use modern syntax
+document.addEventListener('DOMContentLoaded', () => new ThemeManager());

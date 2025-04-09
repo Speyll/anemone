@@ -1,29 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{ section.content | safe }}
+    {{ section.content | safe }}
 
-{% if config.extra.list_pages %}
+    {% if config.extra.list_pages %}
+    <ul class="posts">
+        {% for page in section.pages %}
+        <li>
+            <a href="{{ page.permalink }}">{{ page.title }}</a>
+            <span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
-{% if paginator %}
-{% set pages = paginator.pages %}
-{% else %}
-{% set pages = section.pages %}
-{% endif %}
-
-<ul class="titleList">
-{% for page in pages %}
-  <li>
-    <a href="{{ page.permalink | safe }}">{{ page.title }}</a>
-    <br />
-    {{ page.description }}
-  </li>
-{% endfor %}
-</ul>
-
-{% if paginator %}
-<div class="metaData">{% if paginator.previous %}<a href="{{ paginator.first }}">⥶</a> &nbsp <a href="{{ paginator.previous }}"><</a>{% endif %} &nbsp {{ paginator.current_index }} / {{ paginator.number_pagers }} &nbsp {% if paginator.next %}<a href="{{ paginator.next }}">></a> &nbsp <a href="{{ paginator.last }}">⥸</a>{% endif %}</div>
-{% endif %}
-
-{% endif %}
-{% endblock content %}
+    {% if paginator %}
+        {% include "partials/pagination.html" %}
+    {% endif %}
+{% endblock %}

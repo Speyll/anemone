@@ -1,7 +1,8 @@
 <div {% if class %}class="{{class}}"{% endif %}>
-    <iframe
+    <iframe 
         src="https://www.youtube-nocookie.com/embed/{{id}}{% if autoplay %}?autoplay=1{% endif %}"
-        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        frameborder="0" 
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
         webkitallowfullscreen
         mozallowfullscreen
         allowfullscreen>

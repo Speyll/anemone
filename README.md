@@ -28,7 +28,18 @@ theme = "anemone"
 
 ## Release Notes
 
-#### 02-03-2024
+#### 2025-04-09
+
+This release introduces a **complete rewrite** of the project: simplified, improved, and optimized across the board.
+
+**If you are updating from an older release:**
+1. Open your `config.toml` file and update it as needed (compare with the latest release for reference).
+2. Remove the following line from `content/blog/_index.md`:
+   ```toml
+   page_template = "blog-page.html"
+   ```
+
+#### 2024-03-02
 This release brings several improvements and enhancements, focusing mainly on optimizing performance and user experience. Here's a summary of the key changes:
 
 - **suCSS Integration:** The core CSS now leverages the lightweight [suCSS framework](https://speyll.github.io/suCSS/) made by yours truly, providing better maintainability, robustness, and scalability. With suCSS, the theme should maintain consistent appearance across different browsers.
@@ -70,8 +81,10 @@ The theme has a built-in feature that allows you to use multiple languages. For 
 
 ```toml
 [languages.fr]
-generate_feeds = true
-build_search_index = true
+weight = 2
+title = "anemone"
+languageName = "Français"
+languageCode = "fr"
 ```
 #### Multilanguage-Ready Navigation Bar
 

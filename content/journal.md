@@ -2,6 +2,9 @@
 title = "Personal journal"
 date = 2019-10-05
 draft = false
+
+[extra]
+display_published = false
 +++
 
 ## 2023-06-29 🔧

@@ -26,7 +26,7 @@
 {% if page.extra.toc and page.toc %}
 <div class="toc-container">
     <h2>Table of content</h2>
-    <ul>
+    <ul> 
         {% for h1 in page.toc %}
         <li>
             <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
@@ -48,11 +48,11 @@
     </div>
 
     {% if page.taxonomies.tags %}
-    <div class="post-tags">
+    <footer class="post-tags">
         {% for tag in page.taxonomies.tags %}
-        <a href="/tags/{{ tag | slugify }}" class="tag">#{{ tag }} </a>
+        <a href="/tags/{{ tag | slugify }}" class="tag">#{{ tag }}</a>
         {% endfor %}
-    </div>
+    </footer>
     {% endif %}
 </article>
 {% endblock %}

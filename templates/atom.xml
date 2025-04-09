@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>{{ config.title }}</title>
+    <link href="{{ get_url(path="atom.xml", trailing_slash=false) }}" rel="self"/>
+    <link href="{{ config.base_url }}"/>
+    <updated>{{ now() | date(format="%Y-%m-%dT%H:%M:%S%z") }}</updated>
+    <id>{{ config.base_url }}</id>
+
+    {% set root = get_section(path="_index.md") %}
+    
+    {# Process pages with valid dates #}
+    {% for page in root.pages %}
+        {% if page.date %}
+        <entry>
+            <title>{{ page.title }}</title>
+            <link href="{{ page.permalink }}"/>
+            <updated>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}</updated>
+            <id>{{ page.permalink }}</id>
+            <content type="html">{{ page.content | escape }}</content>
+        </entry>
+        {% endif %}
+    {% endfor %}
+    
+    {% for subsection in root.subsections %}
+        {% set sub = get_section(path=subsection) %}
+        {% for page in sub.pages %}
+            {% if page.date %}
+            <entry>
+                <title>{{ page.title }}</title>
+                <link href="{{ page.permalink }}"/>
+                <updated>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}</updated>
+                <id>{{ page.permalink }}</id>
+                <content type="html">{{ page.content | escape }}</content>
+            </entry>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</feed>

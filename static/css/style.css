@@ -1,12 +1,15 @@
+:root {
+    --icon-size: 1.3rem;
+    --icon-color: var(--text);
+}
+
 #nav-bar {
-  padding: .625rem 0 0 0;
-  display: flex;
-  flex-direction: row;
-  gap: .25rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  align-content: flex-end
+    padding: 0.625rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 #footer-container {
@@ -38,21 +41,37 @@
 }
 
 /* icons settings */
-.icons {
-  width: 1.3rem;
-  height: 1.3rem;
-  aspect-ratio: 1/1;
-  display: inline-block;
-  vertical-align: middle;
-  color: var(--text);
-  fill: var(--text);
-  background-color: transparent;
-  cursor: pointer;
+.icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    display: inline-block;
+    vertical-align: middle;
+    color: var(--icon-color);
+    fill: currentColor;
+    transition: color 0.3s ease;
+    cursor: pointer;
 }
 
-.icons:hover {
-  background-color: transparent;
-  color: var(--accent);
+.icon:hover {
+    --icon-color: var(--accent);
+}
+
+/* Theme toggle specific styles */
+.theme-toggle {
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    display: inline-flex;
+}
+
+.theme-toggle:hover .icon {
+    --icon-color: var(--accent);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 /* footnotes */
@@ -70,16 +89,25 @@
 }
 
 /* general classes */
+/* Cleaned no-style class */
 .no-style {
-  padding: 0;
-  margin: 0;
-  border: none;
-  border-radius: 0
+    all: unset;
+    background: none !important;
+    border: none !important;
 }
 
 .no-style:hover {
-  background-color: transparent;
-  color: var(--accent);
+    background: transparent;
+    color: inherit;
+}
+
+/* Modern float replacement */
+.float-right {
+    margin-inline-start: auto;
+}
+
+.float-left {
+    margin-inline-end: auto;
 }
 
 .center {
@@ -89,14 +117,6 @@
 .center img {
   display: block;
   margin: 1rem auto;
-}
-
-.float-right {
-  float: right
-}
-
-.float-left {
-  float: left
 }
 
 /* shortcodes css */

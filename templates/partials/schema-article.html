@@ -1,0 +1,21 @@
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{ page.title }}",
+    {% if config.extra.author %}
+    "author": {
+        "@type": "Person",
+        "name": "{{ config.extra.author }}"
+    },
+    {% endif %}
+    {% if page.date %}
+    "datePublished": "{{ page.date }}",
+    {% endif %}
+    "description": "{{ page.description | default(value=config.description) }}",
+    "publisher": {
+        "@type": "Organization",
+        "name": "{{ config.title }}"
+    }
+}
+</script>

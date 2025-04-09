@@ -1,9 +1,13 @@
 +++
 title = "Post Example With Headings And Toc"
+date = 2024-01-01
+draft = false
 [taxonomies]
-  tags = ["example"]
+tags = ["example"]
 [extra]
-  toc = true
+toc = true
+display_published = true 
+author = "Speyll"
 +++
 
 Mauris viverra dictum ultricies. Vestibulum quis ipsum euismod, facilisis metus sed, varius ipsum. Donec scelerisque lacus libero, eu dignissim sem venenatis at. Nunc a egestas tortor, sed feugiat leo.

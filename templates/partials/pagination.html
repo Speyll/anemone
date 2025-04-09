@@ -1,0 +1,17 @@
+<nav class="pagination" aria-label="Pagination">
+    <div class="pagination-inner">
+        {% if paginator.previous %}
+            <a href="{{ paginator.previous }}" class="page-item" aria-label="Previous page">
+                <svg class="icon"><use href="{{ get_url(path='icons.svg#chevronLeft') }}"></use></svg>
+            </a>
+        {% endif %}
+
+        <span class="page-current accent-data">{{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
+
+        {% if paginator.next %}
+            <a href="{{ paginator.next }}" class="page-item" aria-label="Next page">
+                <svg class="icon"><use href="{{ get_url(path='icons.svg#chevronRight') }}"></use></svg>
+            </a>
+        {% endif %}
+    </div>
+</nav>
