@@ -1,18 +1,18 @@
 class ThemeManager {
     constructor() {
-        // Cache DOM elements once
         this.toggle = document.getElementById('theme-toggle');
+        if (!this.toggle) return;
+        
         this.icon = document.getElementById('theme-icon');
-
-        // Get data attributes once
         const { iconBase, iconDark, iconLight, soundSrc } = this.toggle.dataset;
         this.iconBase = iconBase;
         this.iconDark = iconDark;
         this.iconLight = iconLight;
-
-        // Create audio element only when needed
-        this.sound = new Audio(soundSrc);
-
+        
+        // Create audio element lazily only when needed
+        this.sound = null;
+        this.soundSrc = soundSrc;
+        
         this.init();
     }
 
@@ -34,31 +34,31 @@ class ThemeManager {
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const newTheme = isDark ? 'light' : 'dark';
 
-        document.body.classList.add('theme-transition');
         document.documentElement.setAttribute('data-theme', newTheme);
-
-        // Use the inverse to update the icon to match the new theme
         this.updateIcon(!isDark);
-
         localStorage.setItem('theme', newTheme);
-
-        // Use requestAnimationFrame for better performance on transition
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                document.body.classList.remove('theme-transition');
-            }, 300);
-        });
-
-        this.sound.play().catch(() => {});
+        
+        // Lazy load sound only when needed
+        if (!this.sound && this.soundSrc) {
+            this.sound = new Audio(this.soundSrc);
+        }
+        
+        if (this.sound) {
+            this.sound.play().catch(() => {});
+        }
     }
 
-
-    // Extracted common functionality
     updateIcon(isDark) {
-        this.icon.setAttribute('href', 
-            `${this.iconBase}${isDark ? this.iconDark : this.iconLight}`);
+        if (this.icon) {
+            this.icon.setAttribute('href', 
+                `${this.iconBase}${isDark ? this.iconDark : this.iconLight}`);
+        }
     }
 }
 
-// Use modern syntax
-document.addEventListener('DOMContentLoaded', () => new ThemeManager());
+// Initialize when content is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new ThemeManager());
+} else {
+    new ThemeManager();
+}
