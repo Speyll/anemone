@@ -136,4 +136,4 @@ Add a webring with a shortcode:
 
 ### License
 
-The Anemone theme is available as open source under the terms of the [MIT License](LICENSE).
+The Anemone theme is available as open source under the terms of the [GPL License](LICENSE).
