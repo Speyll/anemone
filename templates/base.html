@@ -28,7 +28,16 @@
         {% endif %}
         <nav id="nav-bar">
             {% for nav_item in config.extra.header_nav %}
-            <a href="{{ nav_item.url }}" class="{% if current_url is defined and nav_item.url == current_url %}active{% endif %}">
+            {% set item_url = nav_item.url %}
+            {% if current_lang != config.default_language %}
+                {% set lang_url_key = 'url_' ~ current_lang %}
+                {% if lang_url_key in nav_item %}
+                    {% set item_url = nav_item[lang_url_key] %}
+                {% else %}
+                    {% set item_url = nav_item.url %}
+                {% endif %}
+            {% endif %}
+            <a href="{{ item_url }}" class="{% if current_url is defined and item_url == current_url %}active{% endif %}">
                 {% set language_key = 'name_' ~ current_lang %}
                 {{ nav_item[language_key] }}
             </a>
