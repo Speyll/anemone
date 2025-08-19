@@ -34,6 +34,14 @@
             </a>
             {% endfor %}
 
+            {% if config.extra.show_search_icon %}
+            <div class="search-toggle" id="search-toggle" role="button" tabindex="0" aria-label="Toggle search">
+                <svg class="icon">
+                    <use href="{{ get_url(path='icons.svg#search') }}"></use>
+                </svg>
+            </div>
+            {% endif %}
+
             <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
                 data-icon-base="{{ get_url(path='icons.svg') }}"
                 data-icon-dark="#darkMode"

@@ -65,9 +65,23 @@ class ThemeManager {
 }
 
 
+function initSearchToggle() {
+    const searchToggle = document.getElementById('search-toggle');
+    if (searchToggle) {
+        searchToggle.addEventListener('click', () => {
+            // TODO: Add search functionality here
+            console.log('Search toggle clicked!');
+        });
+    }
+}
+
 // Initialize when content is loaded
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => new ThemeManager());
+    document.addEventListener('DOMContentLoaded', () => {
+        new ThemeManager();
+        initSearchToggle();
+    });
 } else {
     new ThemeManager();
+    initSearchToggle();
 }
