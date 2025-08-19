@@ -65,13 +65,38 @@ class ThemeManager {
 }
 
 
-function initSearchToggle() {
-    const searchToggle = document.getElementById('search-toggle');
-    if (searchToggle) {
-        searchToggle.addEventListener('click', () => {
-            // TODO: Add search functionality here
-            console.log('Search toggle clicked!');
-        });
+class SearchManager {
+    constructor() {
+        this.toggle = document.getElementById('search-toggle');
+        this.overlay = document.getElementById('search-overlay');
+        this.background = document.getElementById('search-background');
+        this.input = document.getElementById('search-input');
+        
+        if (!this.toggle || !this.overlay || !this.background || !this.input) return;
+        
+        this.init();
+    }
+    
+    init() {
+        this.toggle.addEventListener('click', () => this.openSearch());
+        this.background.addEventListener('click', () => this.closeSearch());
+        this.input.addEventListener('keydown', (e) => this.handleKeydown(e));
+    }
+    
+    openSearch() {
+        this.overlay.classList.remove('hidden');
+        this.input.focus();
+    }
+    
+    closeSearch() {
+        this.overlay.classList.add('hidden');
+        this.input.value = '';
+    }
+    
+    handleKeydown(e) {
+        if (e.key === 'Escape') {
+            this.closeSearch();
+        }
     }
 }
 
@@ -79,9 +104,9 @@ function initSearchToggle() {
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         new ThemeManager();
-        initSearchToggle();
+        new SearchManager();
     });
 } else {
     new ThemeManager();
-    initSearchToggle();
+    new SearchManager();
 }

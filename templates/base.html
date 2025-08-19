@@ -53,6 +53,13 @@
             </div>
         </nav>
 
+        <div id="search-overlay" class="search-overlay hidden">
+            <div class="search-background" id="search-background"></div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+            </div>
+        </div>
+
         <main>
             {% block content %}{% endblock %}
         </main>
