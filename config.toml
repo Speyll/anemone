@@ -45,6 +45,7 @@ favicon = "favicon.ico"
 list_pages = false
 twitter_card = true
 enable_search = true
+show_search_icon = true
 
 ## Navigation
 header_nav = [
