@@ -119,6 +119,41 @@ Customize the display of the author's name in your blog posts by toggling the `d
 display_author = true
 ```
 
+#### Search Functionality
+
+Anemone includes a optional search feature (disabled by default). The search functionality is built on top of Zola's built-in search index generation and uses Elasticlunr.js for client-side search.
+
+**Enable Search:**
+To enable search functionality:
+
+```toml
+build_search_index = true
+
+[search]
+include_title = true
+include_description = true
+include_content = true
+index_format = "elasticlunr_javascript"
+# At which code point to truncate the content to. Useful if you have a lot of pages and the index would
+# become too big to load on the site. Defaults to not being set.
+# truncate_content_length = 100
+```
+
+**Customize Elasticlunr CDN:**
+By default, the theme loads Elasticlunr.js from the Unpkg CDN. You can customize this by setting a different CDN URL or self-hosting the library:
+
+```toml
+[extra]
+# Use a different CDN
+elasticlunr_cdn = "https://cdn.jsdelivr.net/npm/elasticlunr@0.9.5/elasticlunr.min.js"
+
+# Or self-host the library
+elasticlunr_cdn = "/js/elasticlunr.min.js"
+
+# Or use a different version
+elasticlunr_cdn = "https://unpkg.com/elasticlunr@0.9.6/elasticlunr.min.js"
+```
+
 ### Webrings
 
 Add a webring with a shortcode:
