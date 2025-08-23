@@ -168,9 +168,8 @@ class SearchManager {
         
         results.slice(0, 10).forEach(result => {
             const li = document.createElement('li');
-            const doc = result.doc;
+            const doc = this.searchIndex.documentStore.getDoc(result.ref);
             
-            // The ref field contains the URL
             const url = result.ref;
             
             li.innerHTML = `

@@ -72,7 +72,7 @@
         </footer>
 
 		{% if config.build_search_index %}
-		<script src="{{ get_url(path='js/elasticlunr.min.js') }}" defer></script>
+		<script src="{{ config.extra.elasticlunr_cdn | default(value='https://unpkg.com/elasticlunr@0.9.5/elasticlunr.min.js') }}" defer></script>
 		<script src="{{ get_url(path='search_index.en.js') }}" defer></script>
 		{% endif %}
 		<script src="{{ get_url(path='js/script.js') }}" defer></script>
