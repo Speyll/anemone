@@ -4,6 +4,7 @@ compile_sass = false
 minify_html = true
 generate_feeds = true
 generate_sitemap = true
+build_search_index = true
 
 # Taxonomies
 taxonomies = [
@@ -14,12 +15,10 @@ taxonomies = [
 default_language = "en"
 
 [languages.en]
-build_search_index = true
 title = "anemone"
 description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
 
 [languages.fr]
-build_search_index = true
 title = "anemone"
 description = "Un thème Zola minimaliste qui privilégie un CSS épuré et évite le JavaScript lourd. Profitez d'une expérience utilisateur fluide avec des temps de chargement ultra-rapides. Mettez votre contenu en valeur grâce à un design épuré et élégant qui améliore la lisibilité. Réactif et efficace, Anémone met en valeur vos idées."
 
@@ -44,8 +43,6 @@ author = "Speyll"
 favicon = "favicon.ico"
 list_pages = false
 twitter_card = true
-enable_search = true
-show_search_icon = true
 
 ## Navigation
 header_nav = [
