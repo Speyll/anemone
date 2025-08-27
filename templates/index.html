@@ -8,7 +8,9 @@
         {% for page in section.pages %}
         <li>
             <a href="{{ page.permalink }}">{{ page.title }}</a>
+            {% if page.date %}
             <span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+            {% endif %}
         </li>
         {% endfor %}
     </ul>
