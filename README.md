@@ -57,6 +57,15 @@ This release brings several improvements and enhancements, focusing mainly on op
 
 Anemone provides various options to customize your website:
 
+#### MathJax
+
+To use mathjax, add the following code to a page's metadata:
+
+```toml
+[extra]
+math = true
+```
+
 #### Default Taxonomies
 
 To use tags, add the following code to a page's metadata:
