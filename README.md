@@ -130,8 +130,6 @@ Add a webring with a shortcode:
 
 - Set the `author` in both the main config and in pages metadata.
 - Similarly, set `favicon` in the main config, and it will be used as the site icon.
-- Set `footer_content_license` and `footer_content_license_link` if you wish to display content license information in the footer.
-
 
 ### License
 
