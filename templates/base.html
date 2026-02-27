@@ -34,6 +34,14 @@
             </a>
             {% endfor %}
 
+            {% if config.build_search_index %}
+            <div class="search-toggle" id="search-toggle" role="button" tabindex="0" aria-label="Toggle search">
+                <svg class="icon">
+                    <use href="{{ get_url(path='icons.svg#search') }}"></use>
+                </svg>
+            </div>
+            {% endif %}
+
             <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
                 data-icon-base="{{ get_url(path='icons.svg') }}"
                 data-icon-dark="#darkMode"
@@ -45,6 +53,16 @@
             </div>
         </nav>
 
+        <div id="search-overlay" class="search-overlay hidden">
+            <div class="search-background" id="search-background"></div>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
+                <div id="search-results" class="search-results hidden">
+                    <ul id="search-results-list"></ul>
+                </div>
+            </div>
+        </div>
+
         <main>
             {% block content %}{% endblock %}
         </main>
@@ -53,7 +71,10 @@
             {% include "footer.html" %}
         </footer>
 
-        <!-- Move JS to end of body and add defer -->
-        <script src="{{ get_url(path='js/script.js') }}" defer></script>
+		{% if config.build_search_index %}
+		<script src="{{ config.extra.elasticlunr_cdn | default(value='https://unpkg.com/elasticlunr@0.9.5/elasticlunr.min.js') }}" defer></script>
+		<script src="{{ get_url(path='search_index.en.js') }}" defer></script>
+		{% endif %}
+		<script src="{{ get_url(path='js/script.js') }}" defer></script>
     </body>
 </html>
