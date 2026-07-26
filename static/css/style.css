@@ -1,3 +1,8 @@
+body {
+  font-family: "Manrope", sans-serif;
+}
+
+
 :root {
     --icon-size: 1.3rem;
     --icon-color: var(--text);
