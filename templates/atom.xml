@@ -16,7 +16,7 @@
             <link href="{{ page.permalink }}"/>
             <updated>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}</updated>
             <id>{{ page.permalink }}</id>
-            <content type="html">{{ page.content | escape }}</content>
+            <content type="html">{{ page.content | escape_html }}</content>
         </entry>
         {% endif %}
     {% endfor %}
@@ -30,7 +30,7 @@
                 <link href="{{ page.permalink }}"/>
                 <updated>{{ page.date | date(format="%Y-%m-%dT%H:%M:%S%z") }}</updated>
                 <id>{{ page.permalink }}</id>
-                <content type="html">{{ page.content | escape }}</content>
+                <content type="html">{{ page.content | escape_html }}</content>
             </entry>
             {% endif %}
         {% endfor %}

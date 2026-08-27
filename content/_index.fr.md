@@ -43,5 +43,5 @@ Restez connecté avec nous :
 
 Rejoignez nos anneaux web et explorez davantage :
 
-- 🈯 {{ webring(prev="#", webring="#", webringName="Anneau Aléatoire", next="#") }}
-- 🎶 {{ webring(prev="#", webring="#", webringName="Autre Anneau", next="#") }}
+- 🈯 {{ <webring prev="#" webring="#" webringName="Anneau Aléatoire" next="#" /> }}
+- 🎶 {{ <webring prev="#" webring="#" webringName="Autre Anneau" next="#" /> }}

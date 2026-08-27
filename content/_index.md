@@ -44,5 +44,5 @@ Stay connected with us:
 
 Join our webrings and explore more:
 
-- 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
-- 🎶 {{ webring(prev="#", webring="#", webringName="Another Webring", next="#") }}
+- 🈯 {{ <webring prev="#" webring="#" webringName="Random Webring" next="#" /> }}
+- 🎶 {{ <webring prev="#" webring="#" webringName="Another Webring" next="#" /> }}

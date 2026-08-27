@@ -123,7 +123,7 @@ display_author = true
 Add a webring with a shortcode:
 
 ```html
-{{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
+{{ <webring prev="#" webring="#" webringName="Random Webring" next="#" /> }}
 ```
 
 ### Extra Data

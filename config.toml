@@ -27,8 +27,10 @@ description = "Un thème Zola minimaliste qui privilégie un CSS épuré et évi
 render_emoji = true
 external_links_target_blank = true
 smart_punctuation = true
-highlight_code = false
-highlight_theme = "gruvbox-dark"
+
+[markdown.highlighting]
+theme = "gruvbox-dark-medium"
+style = "class"
 
 [slugify]
 paths = "on"

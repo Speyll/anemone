@@ -60,7 +60,7 @@ Now a table:
 
 ## Images
 
-{{ img(id="https://uploads-ssl.webflow.com/5ff0b3326e5782a256714165/638b6f3a3d8d2e6bad1cb03b_Random22.1.jpg", alt="theme logo") }}
+{{ <img id="https://uploads-ssl.webflow.com/5ff0b3326e5782a256714165/638b6f3a3d8d2e6bad1cb03b_Random22.1.jpg" alt="theme logo" /> }}
 
 random image of a dog[^4]
 
@@ -68,7 +68,7 @@ random image of a dog[^4]
 - 🥣 [This site but in french (only this page and the homepage is translated)](/fr)
 
 ## Webrings
-  - 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
+  - 🈯 {{ <webring prev="#" webring="#" webringName="Random Webring" next="#" /> }}
 
 ---
 

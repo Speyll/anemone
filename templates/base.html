@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="{% if page %}{{ page.lang }}{% else %}{{ config.default_language }}{% endif %}">
     <head>
+        {% block head %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="robots" content="index, follow">
         {% block rss %}
         <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
         {% endblock %}
-        <title>{{ config.title }}{% if page.title %} | {{ page.title }}{% endif %}</title>
+        <title>{{ config.title }}{% if page?.title %} | {{ page.title }}{% endif %}</title>
 
         <link rel="preload" href="{{ get_url(path='css/style.css') }}" as="style">
         <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
@@ -18,6 +19,7 @@
         <!-- Add favicon with appropriate sizes -->
         <link rel="icon" href="{{ config.base_url }}/{{ config.extra.favicon | default(value='favicon.ico') }}">
         {% block extra_head %}{% endblock %}
+        {% endblock head %}
     </head>
     <body>
         {% set current_lang = config.default_language %}

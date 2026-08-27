@@ -59,7 +59,7 @@ Maintenant un tableau :
 
 ## Images
 
-{{ img(id="https://uploads-ssl.webflow.com/5ff0b3326e5782a256714165/638b6f3a3d8d2e6bad1cb03b_Random22.1.jpg", alt="logo du thème") }}
+{{ <img id="https://uploads-ssl.webflow.com/5ff0b3326e5782a256714165/638b6f3a3d8d2e6bad1cb03b_Random22.1.jpg" alt="logo du thème" /> }}
 
 image aléatoire d'un chien[^4]
 
@@ -67,7 +67,7 @@ image aléatoire d'un chien[^4]
 - 🥣 [Ce site mais en français (seulement cette page et la page d'acceuil sont traduis)](/fr)
 
 ## Anneaux Web
-  - 🈯 {{ webring(prev="#", webring="#", webringName="Anneau Aléatoire", next="#") }}
+  - 🈯 {{ <webring prev="#" webring="#" webringName="Anneau Aléatoire" next="#" /> }}
 
 ---
 

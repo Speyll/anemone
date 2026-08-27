@@ -1,0 +1,31 @@
+{% component img(id, class = None, alt = None) %}
+<div {% if class %}class="{{class}}"{% endif %}>
+  <img src="{{id}}" {% if alt %}alt="{{alt}}"{% endif %}>
+  {% if caption %}<div class="caption">{{caption}}</div>{% endif %}
+</div>
+{% endcomponent img %}
+
+{% component webring(prev, webring, webringName, next) %}
+<span class="webring">
+<a class="no-style" href={{prev}}><svg class="icon"><use href="{{ get_url(path='icons.svg#chevronLeft', trailing_slash=false) | safe }}"></use></svg></a>
+<a href={{webring}}>{{webringName}}</a>
+<a class="no-style" href={{next}}><svg class="icon"><use href="{{ get_url(path='icons.svg#chevronRight', trailing_slash=false) | safe }}"></use></svg></a></span>
+{% endcomponent webring %}
+
+{% component mark(content) %}
+<mark>{{content}}</mark>
+{% endcomponent mark %}
+
+{% component youtube(id, class = None, autoplay = None) %}
+<div {% if class %}class="{{class}}"{% endif %}>
+    <iframe
+        src="https://www.youtube-nocookie.com/embed/{{id}}{% if autoplay %}?autoplay=1{% endif %}"
+        loading="lazy"
+        frameborder="0"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen>
+    </iframe>
+</div>
+{% endcomponent youtube %}
