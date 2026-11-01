@@ -1,16 +1,20 @@
-<nav class="pagination" aria-label="Pagination">
+{% set current_index = paginator.current_index | str %}
+{% set total_pagers = paginator.number_pagers | str %}
+{% set page_status = <i18n.t key="page_of" fallback="{current} of {total}" lang={current_lang} /> | replace(from="{current}", to=current_index) | replace(from="{total}", to=total_pagers) %}
+{% set icon_sprite = get_url(path='icons.svg') %}
+<nav class="pagination" aria-label="{{ <i18n.t key='pagination' fallback='Pagination' lang={current_lang} /> }}">
     <div class="pagination-inner">
         {% if paginator.previous %}
-            <a href="{{ paginator.previous }}" class="page-item" aria-label="Previous page">
-                <svg class="icon"><use href="{{ get_url(path='icons.svg#chevronLeft') }}"></use></svg>
+            <a href="{{ paginator.previous }}" class="page-item" rel="prev" aria-label="{{ <i18n.t key='previous_page' fallback='Previous page' lang={current_lang} /> }}">
+                <svg class="icon" aria-hidden="true"><use href="{{ icon_sprite }}#chevronLeft"></use></svg>
             </a>
         {% endif %}
 
-        <span class="page-current accent-data">{{ paginator.current_index }} of {{ paginator.number_pagers }}</span>
+        <span class="page-current accent-data">{{ page_status }}</span>
 
         {% if paginator.next %}
-            <a href="{{ paginator.next }}" class="page-item" aria-label="Next page">
-                <svg class="icon"><use href="{{ get_url(path='icons.svg#chevronRight') }}"></use></svg>
+            <a href="{{ paginator.next }}" class="page-item" rel="next" aria-label="{{ <i18n.t key='next_page' fallback='Next page' lang={current_lang} /> }}">
+                <svg class="icon" aria-hidden="true"><use href="{{ icon_sprite }}#chevronRight"></use></svg>
             </a>
         {% endif %}
     </div>

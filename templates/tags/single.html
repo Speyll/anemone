@@ -1,13 +1,27 @@
 {% extends "base.html" %}
 
+{% block rss %}
+{{ super() }}
+{% if taxonomy.feed %}
+{% set feed_filename = config.feed_filenames[0] | default(value="atom.xml") %}
+<link rel="alternate" type="{% if feed_filename == 'rss.xml' %}application/rss+xml{% else %}application/atom+xml{% endif %}" title="{{ config.title }}" href="{{ term.permalink }}{{ feed_filename }}">
+{% endif %}
+{% endblock rss %}
+
 {% block content %}
-<h1>Posts tagged: {{ term.name }}</h1>
-<ul>
-{% for page in term.pages %}
-    <li>
-        <a href="{{ page.permalink }}">{{ page.title }}</a>
-        <time>{{ page.date | date(format="%Y-%m-%d") }}</time>
-    </li>
-{% endfor %}
+{% set heading = <i18n.t key="tagged_with" fallback="Posts tagged “{term}”" lang={lang} /> | replace(from="{term}", to=term.name) %}
+<h1>{{ heading }}</h1>
+{% set pages = term.pages %}
+{% if paginator %}{% set pages = paginator.pages %}{% endif %}
+{% if pages %}
+<ul class="content-list">
+    {% for page in pages %}
+        {% include "partials/content-listing-item.html" %}
+    {% endfor %}
 </ul>
-{% endblock %}
+{% endif %}
+
+{% if paginator and paginator.number_pagers > 1 %}
+    {% include "partials/pagination.html" %}
+{% endif %}
+{% endblock content %}

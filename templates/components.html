@@ -1,0 +1,77 @@
+{#-
+  Reusable Tera components.
+
+  Tera 2 (used by Zola 0.23) replaced macros with globally registered
+  components, so these live in a single file and need no imports.
+-#}
+
+{#-
+  Interface translation with a graceful fallback.
+
+  Zola's `trans()` raises an error for a missing key, which would make a
+  single-language site (or a partially translated one) fail to build. This
+  component reads the site configuration directly and falls back to the
+  default language, then to the English fallback passed by the template.
+
+  The site configuration is read with `load_data`, which Zola caches for the
+  duration of the build.
+-#}
+{% component i18n.t(key: string, fallback: string, lang: string) -%}
+{%- set site = load_data(path="zola.toml", required=false) -%}
+{%- if not site -%}
+  {%- set site = load_data(path="config.toml", required=false) -%}
+{%- endif -%}
+{%- if site -%}
+  {%- set root_translations = site.translations | default(value={}) -%}
+  {%- set default_options = site.languages?[site.default_language] | default(value={}) -%}
+  {%- set default_extra = default_options.translations | default(value={}) -%}
+  {%- set defaults = {...root_translations, ...default_extra} -%}
+  {%- set language = site.languages?[lang] | default(value={}) -%}
+  {%- set current = language.translations | default(value={}) -%}
+  {%- if lang == site.default_language -%}
+    {%- set current = {...root_translations, ...current} -%}
+  {%- endif -%}
+  {%- if current?[key] is defined -%}
+    {{- current[key] -}}
+  {%- elif defaults?[key] is defined -%}
+    {{- defaults[key] -}}
+  {%- else -%}
+    {{- fallback -}}
+  {%- endif -%}
+{%- else -%}
+  {{- fallback -}}
+{%- endif -%}
+{%- endcomponent i18n.t %}
+
+{#- Recursive table of contents. -#}
+{% component toc.render(items: array) %}
+<ul>
+    {% for item in items %}
+    <li>
+        <a href="{{ item.permalink | safe }}">{{ item.title }}</a>
+        {% if item.children %}{{ <toc.render items={item.children} /> }}{% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endcomponent toc.render %}
+
+{#- Content components (Zola 0.23 removed markdown shortcodes).
+    Components run before Markdown is rendered, so the HTML they emit must not
+    be indented and should be valid block Markdown. -#}
+
+{% component img(id: string, alt: string = "", caption: string = "", class: string = "") -%}
+<figure{% if class %} class="{{ class }}"{% endif %}><img src="{{ id }}" alt="{{ alt }}" loading="lazy" decoding="async">{% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}</figure>
+{%- endcomponent img %}
+
+{% component youtube(id: string, title: string = "YouTube video", class: string = "", autoplay: bool = false) -%}
+<div{% if class %} class="{{ class }}"{% endif %}><iframe src="https://www.youtube-nocookie.com/embed/{{ id }}{% if autoplay %}?autoplay=1{% endif %}" title="{{ title }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+{%- endcomponent youtube %}
+
+{% component webring(prev: string, webring: string, webringName: string, next: string, lang: string = "en") -%}
+{%- set icon_sprite = get_url(path='icons.svg') -%}
+<span class="webring"><a class="no-style" href="{{ prev }}" aria-label="{{ <i18n.t key='previous_webring' fallback='Previous site in webring' lang={lang} /> }}"><svg class="icon" aria-hidden="true"><use href="{{ icon_sprite }}#chevronLeft"></use></svg></a> <a href="{{ webring }}">{{ webringName }}</a> <a class="no-style" href="{{ next }}" aria-label="{{ <i18n.t key='next_webring' fallback='Next site in webring' lang={lang} /> }}"><svg class="icon" aria-hidden="true"><use href="{{ icon_sprite }}#chevronRight"></use></svg></a></span>
+{%- endcomponent webring %}
+
+{% component mark() -%}
+<mark>{{ body | markdown(inline=true) | safe }}</mark>
+{%- endcomponent mark %}

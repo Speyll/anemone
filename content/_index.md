@@ -30,7 +30,7 @@ Discover additional content:
 - With Subitems
   - With Subsubitems
   - [Example Page](./about)
-- this list is just the content of `content/_index.md`, the tests are shamelessly stolen from [no style, please!](https://www.getzola.org/themes/no-style-please/)
+- this list is just the content of `content/_index.md`, the tests are shamelessly stolen from [no style, please!](https://www.getzola.org/themes/)
 
 ## Online Presence
 
@@ -44,5 +44,5 @@ Stay connected with us:
 
 Join our webrings and explore more:
 
-- 🈯 {{ webring(prev="#", webring="#", webringName="Random Webring", next="#") }}
-- 🎶 {{ webring(prev="#", webring="#", webringName="Another Webring", next="#") }}
+- 🈯 {{<webring prev="#" webring="#" webringName="Random Webring" next="#" lang={lang} />}}
+- 🎶 {{<webring prev="#" webring="#" webringName="Another Webring" next="#" lang={lang} />}}

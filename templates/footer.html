@@ -1,4 +1,27 @@
 <hr>
 <div id="footer-container">
-    <p>Made using <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a> Zola theme</p>
+    {% if config.extra.footer_content_license %}
+    <p class="footer-license">
+        {{ <i18n.t key="license_prefix" fallback="Except where otherwise noted, content on this site is licensed under the" lang={current_lang} /> }}
+        {% if config.extra.footer_content_license_link %}
+        <a target="_blank" rel="noopener noreferrer" href="{{ config.extra.footer_content_license_link }}">{{ config.extra.footer_content_license }}</a>
+        {% else %}
+        {{ config.extra.footer_content_license }}
+        {% endif %}
+        {{ <i18n.t key="license_suffix" fallback="license." lang={current_lang} /> }}
+    </p>
+    {% endif %}
+
+    <p class="footer-credit">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a>
+        · <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/suCSS">suCSS</a>
+        · <a target="_blank" rel="noopener noreferrer" href="https://www.getzola.org">Zola</a>
+    </p>
+
+    {% if config.generate_feeds %}
+    {% set feed_filename = config.feed_filenames[0] | default(value="atom.xml") %}
+    <a class="no-style rss-link" href="{{ get_url(path=feed_filename, lang=current_lang, trailing_slash=false) }}" aria-label="{{ <i18n.t key='rss_feed' fallback='RSS feed' lang={current_lang} /> }}">
+        <svg class="icon" aria-hidden="true"><use href="{{ get_url(path='icons.svg') }}#rss"></use></svg>
+    </a>
+    {% endif %}
 </div>

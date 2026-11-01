@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>All Tags</h1>
-<ul>
-{% for tag in terms %}
-    <li>
+<h1>{{ <i18n.t key="all_tags" fallback="All tags" lang={lang} /> }}</h1>
+{% if terms %}
+<ul class="content-list">
+    {% for tag in terms %}
+    {% set count = tag.page_count | str %}
+    {% set count_label = <i18n.t key="post_count" fallback="{count} posts" lang={lang} /> | replace(from="{count}", to=count) %}
+    <li class="title-list">
         <a href="{{ tag.permalink }}">#{{ tag.name }}</a>
-        ({{ tag.pages | length }} posts)
+        <span class="content-meta" aria-label="{{ count_label }}">({{ tag.page_count }})</span>
     </li>
-{% endfor %}
+    {% endfor %}
 </ul>
-{% endblock %}
+{% else %}
+<p>{{ <i18n.t key="no_tags" fallback="No tags yet." lang={lang} /> }}</p>
+{% endif %}
+{% endblock content %}

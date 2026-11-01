@@ -2,18 +2,21 @@
 
 {% block content %}
 <section class="content-section">
-    <h1>{{ section.title }}</h1>
+    {% if section.title %}<h1>{{ section.title }}</h1>{% endif %}
     {{ section.content | safe }}
 
+    {% set pages = section.pages %}
+    {% if paginator %}{% set pages = paginator.pages %}{% endif %}
+    {% if pages %}
     <ul class="content-list">
-        {# Use paginator if it exists, else regular pages #}
-        {% for page in paginator.pages | default(value=section.pages) %}
+        {% for page in pages %}
             {% include "partials/content-listing-item.html" %}
         {% endfor %}
     </ul>
+    {% endif %}
 
-    {% if paginator %}
+    {% if paginator and paginator.number_pagers > 1 %}
         {% include "partials/pagination.html" %}
     {% endif %}
 </section>
-{% endblock %}
+{% endblock content %}

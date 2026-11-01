@@ -1,21 +1,27 @@
+{% set schema_author = config.extra.author | default(value="Unknown") %}
+{% if page.authors | length > 0 %}
+    {% set schema_author = page.authors[0] %}
+{% elif page.extra.author %}
+    {% set schema_author = page.extra.author %}
+{% endif %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "{{ page.title }}",
-    {% if config.extra.author %}
+    "headline": {{ page.title | default(value="") | json_encode | safe }},
+    {% if page.description %}"description": {{ page.description | json_encode | safe }},{% endif %}
+    {% if page.date %}"datePublished": {{ page.date | json_encode | safe }},{% endif %}
     "author": {
         "@type": "Person",
-        "name": "{{ config.extra.author }}"
+        "name": {{ schema_author | json_encode | safe }}
     },
-    {% endif %}
-    {% if page.date %}
-    "datePublished": "{{ page.date }}",
-    {% endif %}
-    "description": "{{ page.description | default(value=config.description) }}",
     "publisher": {
         "@type": "Organization",
-        "name": "{{ config.title }}"
+        "name": {{ config.title | json_encode | safe }}
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": {{ page.permalink | json_encode | safe }}
     }
 }
 </script>

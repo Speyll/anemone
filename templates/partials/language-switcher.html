@@ -1,0 +1,78 @@
+{% set content_translations = [] %}
+{% if page is defined %}
+    {% set content_translations = page.translations | default(value=[]) %}
+{% elif section is defined %}
+    {% set content_translations = section.translations | default(value=[]) %}
+{% endif %}
+
+{#-
+  `config.languages` is language-aware: it omits the active language. Read the
+  site configuration directly to get the complete configured language list on
+  every page, then put the default language first.
+-#}
+{% set site = load_data(path="zola.toml", required=false) %}
+{% if not site %}
+    {% set site = load_data(path="config.toml", required=false) %}
+{% endif %}
+{% if site %}
+    {% set default_code = site.default_language | default(value=config.default_language) %}
+    {% set configured = site.languages | default(value={}) | keys %}
+{% else %}
+    {% set default_code = config.default_language %}
+    {% set configured = config.languages | keys %}
+{% endif %}
+{% set configured_codes = [code for code in configured if code != default_code] %}
+
+{% if configured_codes | length > 0 %}
+{% set icon_sprite = get_url(path='icons.svg') %}
+{% set current_name = <i18n.t key="language_name" fallback={current_lang} lang={current_lang} /> %}
+{% set selector_label = <i18n.t key="language_selector" fallback="Language" lang={current_lang} /> %}
+{% set homepage_label = <i18n.t key="language_homepage" fallback="Homepage" lang={current_lang} /> %}
+{% set page_url = "" %}
+{% if current_url is defined %}{% set page_url = current_url %}{% endif %}
+{% set language_codes = [default_code, ...configured_codes] %}
+<details class="language-switcher">
+    <summary title="{{ selector_label }}">
+        <span class="visually-hidden">{{ selector_label }}:</span>
+        <span lang="{{ current_lang }}" dir="{{ text_direction(lang=current_lang) }}">{{ current_name }}</span>
+        <svg class="icon icon-chevron" aria-hidden="true"><use href="{{ icon_sprite }}#chevronDown"></use></svg>
+    </summary>
+    <ul>
+        {% for code in language_codes %}
+            {% set matches = [t for t in content_translations if t.lang == code] %}
+            {% if matches | length > 0 %}
+                {% set translation = matches | first %}
+                {% set option_name = <i18n.t key="language_name" fallback={code} lang={code} /> %}
+                <li>
+                    <a href="{{ translation.permalink }}"
+                       lang="{{ code }}"
+                       dir="{{ text_direction(lang=code) }}"
+                       hreflang="{{ code }}"
+                       {% if code == current_lang %}class="active" aria-current="true"{% endif %}>{{ option_name }}</a>
+                </li>
+            {% elif code == current_lang and page_url %}
+                {% set option_name = <i18n.t key="language_name" fallback={code} lang={code} /> %}
+                <li>
+                    <a href="{{ page_url }}"
+                       lang="{{ code }}"
+                       dir="{{ text_direction(lang=code) }}"
+                       class="active" aria-current="true">{{ option_name }}</a>
+                </li>
+            {% else %}
+                {% set home = get_section(path="_index.md", lang=code, allow_missing=true) %}
+                {% if home %}
+                    {% set option_name = <i18n.t key="language_name" fallback={code} lang={code} /> %}
+                    {% set option_title = option_name ~ " — " ~ homepage_label %}
+                    <li>
+                        <a href="{{ home.permalink }}"
+                           lang="{{ code }}"
+                           dir="{{ text_direction(lang=code) }}"
+                           title="{{ option_title | safe }}"
+                           aria-label="{{ option_title | safe }}">{{ option_name }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</details>
+{% endif %}

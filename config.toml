@@ -1,34 +1,23 @@
 # General
 base_url = "https://anemone.pages.dev"
+title = "anemone"
+description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
 compile_sass = false
 minify_html = true
 generate_feeds = true
 generate_sitemap = true
+exclude_paginated_pages_in_sitemap = "all"
+default_language = "en"
 
 # Taxonomies
 taxonomies = [
     {name = "tags", feed = true, paginate_by = 10},
 ]
 
-# Language
-default_language = "en"
-
-[languages.en]
-build_search_index = true
-title = "anemone"
-description = "A minimalist Zola theme that prioritizes clean CSS and avoids heavy JavaScript. Enjoy a seamless user experience with lightning-fast load times. Let your content take center stage in a clutter-free, elegant design that enhances readability. Responsive and efficient, anemone brings focus to your ideas."
-
-[languages.fr]
-build_search_index = true
-title = "anemone"
-description = "Un thème Zola minimaliste qui privilégie un CSS épuré et évite le JavaScript lourd. Profitez d'une expérience utilisateur fluide avec des temps de chargement ultra-rapides. Mettez votre contenu en valeur grâce à un design épuré et élégant qui améliore la lisibilité. Réactif et efficace, Anémone met en valeur vos idées."
-
 [markdown]
 render_emoji = true
 external_links_target_blank = true
 smart_punctuation = true
-highlight_code = false
-highlight_theme = "gruvbox-dark"
 
 [slugify]
 paths = "on"
@@ -38,18 +27,99 @@ anchors = "on"
 [link_checker]
 internal_level = "warn"
 
+# Interface translations for the default language
+[translations]
+language_name = "English"
+nav_label = "Main navigation"
+language_selector = "Language"
+language_homepage = "Homepage"
+theme_toggle = "Toggle color theme"
+skip_to_content = "Skip to content"
+published_on = "Published on"
+by_author = "By"
+table_of_contents = "Table of contents"
+tags = "Tags"
+pagination = "Pagination"
+previous_page = "Previous page"
+next_page = "Next page"
+page_of = "{current} of {total}"
+all_tags = "All tags"
+tagged_with = "Posts tagged “{term}”"
+post_count = "{count} posts"
+no_tags = "No tags yet."
+rss_feed = "RSS feed"
+return_home = "Return home"
+not_found_title = "404 - Not Found"
+not_found_message = "The page you're looking for doesn't exist."
+previous_webring = "Previous site in webring"
+next_webring = "Next site in webring"
+license_prefix = "Except where otherwise noted, content on this site is licensed under the"
+license_suffix = "license."
+nav_home = "Home"
+nav_about = "About"
+nav_journal = "Journal"
+nav_blog = "Blog"
+
+# French
+[languages.fr]
+title = "anemone"
+description = "Un thème Zola minimaliste qui privilégie un CSS épuré et évite le JavaScript lourd. Profitez d'une expérience utilisateur fluide avec des temps de chargement ultra-rapides. Mettez votre contenu en valeur grâce à un design épuré et élégant qui améliore la lisibilité. Réactif et efficace, Anémone met en valeur vos idées."
+generate_feeds = true
+taxonomies = [
+    {name = "tags", feed = true, paginate_by = 10},
+]
+
+[languages.fr.translations]
+language_name = "Français"
+nav_label = "Navigation principale"
+language_selector = "Langue"
+language_homepage = "Page d'accueil"
+theme_toggle = "Changer de thème"
+skip_to_content = "Aller au contenu"
+published_on = "Publié le"
+by_author = "Par"
+table_of_contents = "Table des matières"
+tags = "Étiquettes"
+pagination = "Pagination"
+previous_page = "Page précédente"
+next_page = "Page suivante"
+page_of = "{current} sur {total}"
+all_tags = "Toutes les étiquettes"
+tagged_with = "Articles étiquetés « {term} »"
+post_count = "{count} articles"
+no_tags = "Aucune étiquette pour le moment."
+rss_feed = "Flux RSS"
+return_home = "Retour à l'accueil"
+not_found_title = "404 - Page introuvable"
+not_found_message = "La page que vous cherchez n'existe pas."
+previous_webring = "Site précédent dans l'anneau"
+next_webring = "Site suivant dans l'anneau"
+license_prefix = "Sauf mention contraire, le contenu de ce site est mis à disposition sous la"
+license_suffix = "licence."
+nav_home = "Accueil"
+nav_about = "À propos"
+nav_journal = "Journal"
+nav_blog = "Blog"
+
 # Extra
 [extra]
 author = "Speyll"
 favicon = "favicon.ico"
 list_pages = false
 twitter_card = true
-enable_search = true
+display_author = true
 
 ## Navigation
+# `path` is an internal Zola path (language-aware, with default-language fallback);
+# `url` is used verbatim for external links.
+# `key` is optional and looks up the label in [translations]; `name` is the fallback label.
 header_nav = [
-  { url = "/", name_en = "/home/", name_fr = "/accueil/" },
-  { url = "/about", name_en = "/about/", name_fr = "/concernant/" },
-  { url = "/journal", name_en = "/journal/", name_fr = "/journal/" },
-  { url = "/blog", name_en = "/blog/", name_fr = "/blog/" }
+  { path = "@/_index.md", key = "nav_home", name = "Home" },
+  { path = "@/about.md", key = "nav_about", name = "About" },
+  { path = "@/journal.md", key = "nav_journal", name = "Journal" },
+  { path = "@/blog/_index.md", key = "nav_blog", name = "Blog" }
 ]
+
+# Optional content license shown in the footer.
+# footer_content_license = "Creative Commons Attribution 4.0 International"
+# footer_content_license_link = "https://creativecommons.org/licenses/by/4.0/"

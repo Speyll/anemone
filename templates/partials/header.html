@@ -1,0 +1,73 @@
+{% set icon_sprite = get_url(path='icons.svg') %}
+{# Resolve the active language's homepage through the section lookup so
+   languages with an auto-generated homepage (no _index.<lang>.md file) work. #}
+{% set language_home_section = get_section(path="_index.md", lang=current_lang, allow_missing=true) %}
+{% set language_home = "" %}
+{% if language_home_section %}
+    {% set language_home = language_home_section.permalink | replace(from=config.base_url, to="") %}
+{% endif %}
+<header class="site-header">
+    <nav id="nav-bar" aria-label="{{ <i18n.t key='nav_label' fallback='Main navigation' lang={current_lang} /> }}">
+        {% if config.extra.header_nav %}
+        <ul class="nav-list">
+            {% for item in config.extra.header_nav %}
+                {% set nav_url = "" %}
+                {% set nav_lang = current_lang %}
+                {% set target = false %}
+                {% if item.path %}
+                    {% set rel_path = item.path | replace(from="@/", to="") %}
+                    {% if rel_path is ending_with(pat="_index.md") %}
+                        {% set target = get_section(path=rel_path, lang=current_lang, allow_missing=true) %}
+                        {% if not target %}
+                            {% set target = get_section(path=rel_path, lang=config.default_language, allow_missing=true) %}
+                            {% if target %}{% set nav_lang = config.default_language %}{% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% set target = get_page(path=rel_path, lang=current_lang, allow_missing=true) %}
+                        {% if not target %}
+                            {% set target = get_page(path=rel_path, lang=config.default_language, allow_missing=true) %}
+                            {% if target %}{% set nav_lang = config.default_language %}{% endif %}
+                        {% endif %}
+                    {% endif %}
+                    {% if target %}{% set nav_url = target.permalink %}{% endif %}
+                {% elif item.url %}
+                    {% set nav_url = item.url %}
+                    {% set nav_lang = "" %}
+                {% endif %}
+
+                {% if nav_url %}
+                    {% set nav_label = item.name | default(value="") %}
+                    {% if item.key %}
+                        {% set nav_label = <i18n.t key={item.key} fallback={nav_label} lang={current_lang} /> %}
+                    {% endif %}
+                    {% if not nav_label and target %}
+                        {% set nav_label = target.title %}
+                    {% endif %}
+                    {% set nav_path = nav_url | replace(from=config.base_url, to="") %}
+                    {% set nav_path_normalized = nav_path | trim_start(pat="/") %}
+                    {% set current_path_normalized = "" %}
+                    {% if current_path is defined %}{% set current_path_normalized = current_path | trim_start(pat="/") %}{% endif %}
+                    {% set language_home_normalized = language_home | trim_start(pat="/") %}
+                    {% set is_current = nav_lang and nav_lang == current_lang and current_path is defined and current_path_normalized == nav_path_normalized %}
+                    {% set is_ancestor = nav_lang and nav_lang == current_lang and current_path is defined and nav_path_normalized != language_home_normalized and current_path_normalized is starting_with(pat=nav_path_normalized) %}
+                    <li>
+                        <a href="{{ nav_url }}"
+                           {%- if nav_lang %} hreflang="{{ nav_lang }}"{% endif %}
+                           {%- if nav_lang and nav_lang != current_lang %} lang="{{ nav_lang }}"{% endif %}
+                           {%- if is_current or is_ancestor %} class="active"{% endif %}
+                           {%- if is_current %} aria-current="page"{% endif %}>{{ nav_label }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="nav-actions">
+            {% include "partials/language-switcher.html" %}
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="{{ <i18n.t key='theme_toggle' fallback='Toggle color theme' lang={current_lang} /> }}">
+                <svg class="icon icon-dark" aria-hidden="true"><use href="{{ icon_sprite }}#darkMode"></use></svg>
+                <svg class="icon icon-light" aria-hidden="true"><use href="{{ icon_sprite }}#lightMode"></use></svg>
+            </button>
+        </div>
+    </nav>
+</header>

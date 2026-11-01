@@ -1,59 +1,115 @@
 <!DOCTYPE html>
-<html lang="{% if page %}{{ page.lang }}{% else %}{{ config.default_language }}{% endif %}">
+{% set current_lang = lang | default(value=config.default_language) %}
+{% set page_title = "" %}
+{% if page is defined and page.title %}
+    {% set page_title = page.title %}
+{% elif section is defined and section.title %}
+    {% set page_title = section.title %}
+{% elif term is defined %}
+    {% set page_title = term.name %}
+{% elif taxonomy is defined %}
+    {% set page_title = <i18n.t key="all_tags" fallback="All tags" lang={current_lang} /> %}
+{% endif %}
+
+{% set page_description = "" %}
+{% if page is defined and page.description %}
+    {% set page_description = page.description %}
+{% elif section is defined and section.description %}
+    {% set page_description = section.description %}
+{% elif config.description %}
+    {% set page_description = config.description %}
+{% endif %}
+
+{% set content_translations = [] %}
+{% if page is defined %}
+    {% set content_translations = page.translations | default(value=[]) %}
+{% elif section is defined %}
+    {% set content_translations = section.translations | default(value=[]) %}
+{% endif %}
+
+{% set page_image = "" %}
+{% if page is defined and page.extra.image %}
+    {% set page_image = page.extra.image %}
+{% elif section is defined and section.extra.image %}
+    {% set page_image = section.extra.image %}
+{% endif %}
+{% if page_image and not page_image is starting_with(pat="http") %}
+    {% set page_image = get_url(path=page_image) %}
+{% endif %}
+
+<html lang="{{ current_lang }}" dir="{{ text_direction(lang=current_lang) }}">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="robots" content="index, follow">
+        <meta name="color-scheme" content="light dark">
+        <title>{% block title %}{% if page_title and page_title != config.title %}{{ page_title }} | {{ config.title }}{% else %}{{ config.title }}{% endif %}{% endblock title %}</title>
+
+        {% if page_description %}<meta name="description" content="{{ page_description }}">{% endif %}
+        {% if config.extra.author %}<meta name="author" content="{{ config.extra.author }}">{% endif %}
+        {% if current_url is defined %}<link rel="canonical" href="{{ current_url }}">{% endif %}
+
+        {% for translation in content_translations %}
+        {% set translation_lang = config.default_language %}
+        {% if translation.lang %}{% set translation_lang = translation.lang %}{% endif %}
+        <link rel="alternate" hreflang="{{ translation_lang }}" href="{{ translation.permalink }}">
+        {% if translation_lang == config.default_language %}<link rel="alternate" hreflang="x-default" href="{{ translation.permalink }}">{% endif %}
+        {% endfor %}
+
+        {% if page_title %}<meta property="og:title" content="{{ page_title }}">{% endif %}
+        {% if page_description %}<meta property="og:description" content="{{ page_description }}">{% endif %}
+        <meta property="og:site_name" content="{{ config.title }}">
+        <meta property="og:type" content="{% if page is defined %}article{% else %}website{% endif %}">
+        {% if current_url is defined %}<meta property="og:url" content="{{ current_url }}">{% endif %}
+        {% if page_image %}<meta property="og:image" content="{{ page_image }}">{% endif %}
+        {% if config.extra.twitter_card | default(value=true) %}
+        <meta name="twitter:card" content="{% if page_image %}summary_large_image{% else %}summary{% endif %}">
+        {% if page_title %}<meta name="twitter:title" content="{{ page_title }}">{% endif %}
+        {% if page_description %}<meta name="twitter:description" content="{{ page_description }}">{% endif %}
+        {% if page_image %}<meta name="twitter:image" content="{{ page_image }}">{% endif %}
+        {% endif %}
+
         {% block rss %}
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ get_url(path="rss.xml", trailing_slash=false) }}">
-        {% endblock %}
-        <title>{{ config.title }}{% if page.title %} | {{ page.title }}{% endif %}</title>
+        {% if config.generate_feeds %}
+        {% set feed_filename = config.feed_filenames[0] | default(value="atom.xml") %}
+        <link rel="alternate" type="{% if feed_filename == 'rss.xml' %}application/rss+xml{% else %}application/atom+xml{% endif %}" title="{{ config.title }}" href="{{ get_url(path=feed_filename, lang=current_lang, trailing_slash=false) }}">
+        {% endif %}
+        {% endblock rss %}
 
-        <link rel="preload" href="{{ get_url(path='css/style.css') }}" as="style">
-        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css" crossorigin="anonymous">
+        <script>
+            (function () {
+                try {
+                    var theme = localStorage.getItem("theme");
+                    if (theme !== "light" && theme !== "dark") {
+                        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                    }
+                    document.documentElement.dataset.theme = theme;
+                } catch (error) {
+                    /* Storage may be unavailable; the CSS fallback still applies. */
+                }
+            })();
+        </script>
+        <noscript><style>#theme-toggle { display: none; }</style></noscript>
+
+        <link rel="stylesheet" href="{{ get_url(path='css/sucss.css') }}">
         <link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
-        <link rel="stylesheet" href="{{ get_url(path='css/custom.css') }}">
 
-        <!-- Add favicon with appropriate sizes -->
-        <link rel="icon" href="{{ config.base_url }}/{{ config.extra.favicon | default(value='favicon.ico') }}">
-        {% block extra_head %}{% endblock %}
+        {% set favicon = config.extra.favicon | default(value="favicon.ico") %}
+        {% if not favicon %}{% set favicon = "favicon.ico" %}{% endif %}
+        <link rel="icon" href="{% if favicon is starting_with(pat='http') %}{{ favicon }}{% else %}{{ get_url(path=favicon) }}{% endif %}">
+        {% block extra_head %}{% endblock extra_head %}
     </head>
     <body>
-        {% set current_lang = config.default_language %}
-        {% if page %}
-        {% set current_lang = page.lang %}
-        {% elif section %}
-        {% set current_lang = section.lang %}
-        {% endif %}
-        <nav id="nav-bar">
-            {% for nav_item in config.extra.header_nav %}
-            <a href="{{ nav_item.url }}" class="{% if current_url is defined and nav_item.url == current_url %}active{% endif %}">
-                {% set language_key = 'name_' ~ current_lang %}
-                {{ nav_item[language_key] }}
-            </a>
-            {% endfor %}
+        <a class="skip-link" href="#main">{{ <i18n.t key="skip_to_content" fallback="Skip to content" lang={current_lang} /> }}</a>
+        {% include "partials/header.html" %}
 
-            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
-                data-icon-base="{{ get_url(path='icons.svg') }}"
-                data-icon-dark="#darkMode"
-                data-icon-light="#lightMode"
-                data-sound-src="{{ get_url(path='click.ogg') }}">
-                <svg class="icon">
-                    <use id="theme-icon"></use>
-                </svg>
-            </div>
-        </nav>
-
-        <main>
-            {% block content %}{% endblock %}
+        <main id="main">
+            {% block content %}{% endblock content %}
         </main>
 
         <footer>
             {% include "footer.html" %}
         </footer>
 
-        <!-- Move JS to end of body and add defer -->
         <script src="{{ get_url(path='js/script.js') }}" defer></script>
     </body>
 </html>

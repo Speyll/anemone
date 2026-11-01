@@ -1,125 +1,424 @@
 :root {
     --icon-size: 1.3rem;
-    --icon-color: var(--text);
+}
+
+/* Accessibility helpers */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    z-index: 10;
+    padding: 0.5rem 0.75rem;
+    background: var(--bg);
+    color: var(--text);
+    transform: translateY(-150%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+/* Header and navigation */
+.site-header {
+    padding-block-start: 0.625rem;
 }
 
 #nav-bar {
-    padding: 0.625rem 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.25rem;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem 1rem;
 }
 
-#footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
+.nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.25rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.accent-data {
-  color: var(--accent);
+.nav-list a {
+    display: inline-block;
+    padding: 0.125rem 0.25rem;
 }
 
-.theme-transition {
-  transition: color 0.3s ease, background-color 0.3s ease;
+.nav-list a.active {
+    /* Keep the framework's `color: var(--link)` rule but swap the token,
+       so the hover/focus fill still uses the real interactive accent. */
+    --link: var(--accent);
 }
 
-.tags-data {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: flex-start;
-  align-content: flex-end
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.title-list li {
-  margin-bottom: .375rem;
+/* Language dropdown (<details>) */
+.language-switcher {
+    position: relative;
+    padding: 0;
+    background: none;
+    font-size: 0.875rem;
 }
 
-/* icons settings */
+.language-switcher summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.125rem;
+    color: var(--text-light);
+    font-weight: 400;
+    list-style: none;
+    cursor: pointer;
+}
+
+.language-switcher summary::-webkit-details-marker {
+    display: none;
+}
+
+.language-switcher summary::marker {
+    content: "";
+}
+
+.language-switcher .icon-chevron {
+    width: 1em;
+    height: 1em;
+    transition: transform 0.2s ease;
+}
+
+.language-switcher[open] > summary {
+    margin-block-end: 0;
+    color: var(--accent);
+}
+
+.language-switcher[open] .icon-chevron {
+    transform: rotate(180deg);
+}
+
+.language-switcher summary:hover,
+.language-switcher summary:focus-visible {
+    background-color: var(--hover-bg);
+    color: var(--hover-text);
+}
+
+.language-switcher summary:hover .icon,
+.language-switcher summary:focus-visible .icon {
+    color: inherit;
+}
+
+.language-switcher ul {
+    position: absolute;
+    inset-block-start: calc(100% + 0.25rem);
+    inset-inline-end: 0;
+    z-index: 20;
+    display: block;
+    min-width: 100%;
+    max-width: min(16rem, calc(100vw - 2rem));
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    margin: 0;
+    padding: 0.25rem;
+    list-style: none;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+}
+
+.language-switcher li {
+    margin: 0;
+}
+
+.language-switcher a {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    --link: var(--text-light);
+}
+
+.language-switcher a.active {
+    --link: var(--accent);
+    font-weight: 700;
+}
+
+/* Theme toggle */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.125rem;
+    margin: 0;
+    background: none;
+    border: 0;
+    color: var(--text);
+    cursor: pointer;
+}
+
+button.theme-toggle,
+button.theme-toggle:hover,
+button.theme-toggle:active {
+    background: none;
+    border: 0;
+}
+
+button.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle .icon-light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .icon-dark {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle .icon-light {
+    display: inline-block;
+}
+
+/* When JavaScript is unavailable, follow the system preference. */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .theme-toggle .icon-dark {
+        display: none;
+    }
+
+    html:not([data-theme]) .theme-toggle .icon-light {
+        display: inline-block;
+    }
+}
+
+/* Icons */
 .icon {
     width: var(--icon-size);
     height: var(--icon-size);
     display: inline-block;
     vertical-align: middle;
-    color: var(--icon-color);
     fill: currentColor;
     transition: color 0.3s ease;
-    cursor: pointer;
 }
 
 .icon:hover {
-    --icon-color: var(--accent);
+    color: var(--accent);
 }
 
-/* Theme toggle specific styles */
-.theme-toggle {
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    background: none;
-    border: none;
-    display: inline-flex;
-}
-
-.theme-toggle:hover .icon {
-    --icon-color: var(--accent);
-}
-
-.theme-toggle:active {
-    transform: scale(0.95);
-}
-
-/* footnotes */
-.footnote-definition {
-  margin: 0 0 0 .125rem;
-}
-
-.footnote-definition-label {
-  color: var(--accent);
-}
-
-.footnote-definition p {
-  display: inline;
-  margin: .625rem 0 0 .625rem;
-}
-
-/* general classes */
-/* Cleaned no-style class */
-.no-style {
-    all: unset;
-    background: none !important;
-    border: none !important;
-}
-
-.no-style:hover {
-    background: transparent;
+/* Inside a link the icon follows the link's hover/focus foreground. */
+a:hover .icon,
+a:focus-visible .icon {
     color: inherit;
 }
 
-/* Modern float replacement */
-.float-right {
-    margin-inline-start: auto;
+/* Content listings */
+.content-list {
+    padding-inline-start: 0;
+    list-style: none;
 }
 
-.float-left {
-    margin-inline-end: auto;
+.content-list > li {
+    margin-block-end: 0.375rem;
+}
+
+.content-meta {
+    color: var(--text-light);
+    font-size: 0.875rem;
+    margin-inline-end: 0.5rem;
+}
+
+.accent-data {
+    color: var(--accent);
+}
+
+/* Pages */
+.post-header time,
+.post-author {
+    display: block;
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.post-header h1 {
+    margin-block-start: 0.5rem;
+}
+
+.toc-container {
+    margin-block: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-light);
+    border-radius: var(--standard-border-radius);
+}
+
+.toc-container h2 {
+    margin-block-start: 0;
+    font-size: 1.25rem;
+}
+
+.toc-container ul {
+    margin-block: 0.25rem;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block-start: 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.post-tags .tag {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--standard-border-radius);
+}
+
+/* Pagination */
+.pagination-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-block-start: 1.5rem;
+}
+
+.page-item {
+    display: inline-flex;
+}
+
+/* Footer */
+#footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+}
+
+.footer-license,
+.footer-credit {
+    margin: 0;
+}
+
+.footer-credit,
+.rss-link {
+    font-size: 0.875rem;
+}
+
+.rss-link .icon {
+    color: var(--text-light);
+}
+
+/* Utility classes kept for content components and backward compatibility */
+.no-style {
+    padding: 0;
+    background: none;
+    border: 0;
+    color: inherit;
+}
+
+.no-style:hover,
+.no-style:focus {
+    background: none;
+    color: var(--accent);
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
-.center img {
-  display: block;
-  margin: 1rem auto;
+.center img,
+.center iframe {
+    display: block;
+    margin-inline: auto;
 }
 
-/* shortcodes css */
 .webring {
-  margin: .375rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0.375rem;
+}
+
+/* Footnotes */
+.footnote-definition {
+    margin: 0 0 0 0.125rem;
+}
+
+.footnote-definition-label {
+    color: var(--accent);
+}
+
+.footnote-definition p {
+    display: inline;
+    margin: 0.625rem 0 0 0.625rem;
+}
+
+/* Theme transition, applied only while toggling */
+html.theme-transition,
+html.theme-transition body,
+html.theme-transition body * {
+    transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Direction-aware arrows */
+[dir="rtl"] .pagination .icon,
+[dir="rtl"] .webring .icon {
+    transform: scaleX(-1);
+}
+
+@media (max-width: 720px) {
+    #nav-bar {
+        justify-content: flex-start;
+    }
+
+    .nav-list {
+        width: 100%;
+    }
+
+    .nav-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .language-switcher ul {
+        inset-inline-start: 0;
+        inset-inline-end: auto;
+    }
+
+    #footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.theme-transition,
+    html.theme-transition body,
+    html.theme-transition body *,
+    .icon,
+    .language-switcher .icon-chevron {
+        transition: none;
+    }
+
+    .theme-toggle:active {
+        transform: none;
+    }
 }

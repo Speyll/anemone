@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
+{% block title %}{{ <i18n.t key="not_found_title" fallback="404 - Not Found" lang={lang} /> }} | {{ config.title }}{% endblock title %}
+
 {% block content %}
 <article class="center">
-    <h1>404 - Not Found</h1>
-    <p>The page you're looking for doesn't exist.</p>
-    <a href="/" class="no-style">← Return home</a>
+    <h1>{{ <i18n.t key="not_found_title" fallback="404 - Not Found" lang={lang} /> }}</h1>
+    <p>{{ <i18n.t key="not_found_message" fallback="The page you're looking for doesn't exist." lang={lang} /> }}</p>
+    <a href="{{ get_url(path='@/_index.md', lang=lang) }}">← {{ <i18n.t key="return_home" fallback="Return home" lang={lang} /> }}</a>
 </article>
-{% endblock %}
+{% endblock content %}

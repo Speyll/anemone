@@ -1,58 +1,51 @@
 {% extends "base.html" %}
 
-{% block head %}
-{{ super() }}
+{% block extra_head %}
 {% include "partials/schema-article.html" %}
-{% endblock %}
+{% endblock extra_head %}
 
 {% block content %}
 <article class="post">
     <header class="post-header">
+        {% set page_author = "" %}
+        {% if page.authors | length > 0 %}
+            {% set page_author = page.authors[0] %}
+        {% elif page.extra.author %}
+            {% set page_author = page.extra.author %}
+        {% endif %}
+
         {% if page.date and page.extra.display_published | default(value=true) %}
-        <time datetime="{{ page.date }}">Published on:
+        <time datetime="{{ page.date }}">{{ <i18n.t key="published_on" fallback="Published on" lang={current_lang} /> }}:
             <span class="accent-data">{{ page.date | date(format="%Y-%m-%d") }}</span>
         </time>
         {% endif %}
 
-        {% if page.extra.author %}
-        <address rel="author">By
-            <span class="accent-data">{{ page.extra.author }}</span>
-        </address>
+        {% if page_author and config.extra.display_author | default(value=true) %}
+        <p class="post-author">{{ <i18n.t key="by_author" fallback="By" lang={current_lang} /> }}
+            <span class="accent-data">{{ page_author }}</span>
+        </p>
         {% endif %}
 
-        <h1>{{ page.title }}</h1>
+        {% if page.title %}<h1>{{ page.title }}</h1>{% endif %}
     </header>
 
-{% if page.extra.toc and page.toc %}
-<div class="toc-container">
-    <h2>Table of content</h2>
-    <ul>
-        {% for h1 in page.toc %}
-        <li>
-            <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
-            {% if h1.children %}
-            <ul>
-                {% for h2 in h1.children %}
-                <li><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-{% endif %}
+    {% if page.extra.toc and page.toc %}
+    <nav class="toc-container" aria-label="{{ <i18n.t key="table_of_contents" fallback="Table of contents" lang={current_lang} /> }}">
+        <h2>{{ <i18n.t key="table_of_contents" fallback="Table of contents" lang={current_lang} /> }}</h2>
+        {{ <toc.render items={page.toc} /> }}
+    </nav>
+    {% endif %}
 
     <div class="post-content">
         {{ page.content | safe }}
     </div>
 
     {% if page.taxonomies.tags %}
-    <div class="post-tags">
+    <ul class="post-tags" aria-label="{{ <i18n.t key="tags" fallback="Tags" lang={current_lang} /> }}">
         {% for tag in page.taxonomies.tags %}
-        <a href="/tags/{{ tag | slugify }}" class="tag">#{{ tag }} </a>
+        <li><a href="{{ get_taxonomy_url(kind='tags', term=tag, lang=current_lang) }}" class="tag">#{{ tag }}</a></li>
         {% endfor %}
-    </div>
+    </ul>
     {% endif %}
 </article>
-{% endblock %}
+{% endblock content %}

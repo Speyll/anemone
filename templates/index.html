@@ -1,20 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {{ section.content | safe }}
+{{ section.content | safe }}
 
-    {% if config.extra.list_pages %}
-    <ul class="posts">
-        {% for page in section.pages %}
-        <li>
-            <a href="{{ page.permalink }}">{{ page.title }}</a>
-            <span class="date">{{ page.date | date(format="%Y-%m-%d") }}</span>
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+{% if config.extra.list_pages %}
+{% set pages = section.pages %}
+{% if paginator %}{% set pages = paginator.pages %}{% endif %}
+{% if pages %}
+<ul class="content-list">
+    {% for page in pages %}
+        {% include "partials/content-listing-item.html" %}
+    {% endfor %}
+</ul>
+{% endif %}
 
-    {% if paginator %}
-        {% include "partials/pagination.html" %}
-    {% endif %}
-{% endblock %}
+{% if paginator and paginator.number_pagers > 1 %}
+    {% include "partials/pagination.html" %}
+{% endif %}
+{% endif %}
+{% endblock content %}
